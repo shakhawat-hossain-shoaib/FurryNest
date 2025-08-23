@@ -3,21 +3,21 @@ import React from "react";
 const successStories = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1518715308788-327f6b0037c5?w=120&h=120&fit=facearea&facepad=3",
+    image: "https://images.unsplash.com/photo-1600469801983-3d0b47a2059a",
     name: "Miso",
     story: "The first day we brought Miso home, he didn't cry at all on the car ride home. He was incredibly curious, and wanted to explore absolutely everything. Since I already had an adult cat at home, I tried to keep Miso secluded in our study, but he had other plans! As soon as his prayer opened that door, Miso came dashing out, right up to Katsu, and Katsu kissed him. Best friends for life.",
     author: "The Dorian Family & Miso"
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=120&h=120&fit=facearea&facepad=3",
+    image: "https://images.unsplash.com/photo-1601328318547-44567d853f3b",
     name: "Buddy",
     story: "When we first met Buddy at the shelter, he was so shy and scared. But after just a few weeks in our home, his true personality started to shine. Now he's the most playful and loving dog we've ever had. He loves going on walks, playing fetch, and cuddling on the couch. He's truly become the heart of our family.",
     author: "The Johnson Family & Buddy"
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1507149833265-60c372daea22?w=120&h=120&fit=facearea&facepad=3",
+    image: "https://images.unsplash.com/photo-1600469802026-4358d4e89df3?",
     name: "Luna",
     story: "Luna was found as a stray kitten, and we weren't sure if she would ever trust humans again. But with patience and love, she slowly started to come out of her shell. Now she's the most affectionate cat, always purring and following us around the house. She's proof that every animal deserves a second chance.",
     author: "The Martinez Family & Luna"

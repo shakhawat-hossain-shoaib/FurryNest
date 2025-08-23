@@ -5,19 +5,19 @@ const posts = [
     title: "Starting your new friendship off on the right paw",
     date: "08.10.2025",
     tag: "Adopting a pet",
-    img: "https://images.unsplash.com/photo-1518715308788-30057527ade5"
+    img: "https://images.unsplash.com/photo-1600469801983-3d0b47a2059a"
   },
   {
     title: "All the things to consider when choosing child friendly pets",
     date: "08.12.2025",
     tag: "Adopting a pet",
-    img: "https://images.unsplash.com/photo-1508672019048-805c876b67e2"
+    img: "https://images.unsplash.com/photo-1600469802026-4358d4e89df3?"
   },
   {
     title: "12 Reasons to adopt, don't shop!",
     date: "08.13.2025",
     tag: "Adopting a pet",
-    img: "https://images.unsplash.com/photo-1507149833265-60c372daea22"
+    img: "https://images.unsplash.com/photo-1601328318547-44567d853f3b"
   }
 ];
 
