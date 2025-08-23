@@ -1,24 +1,28 @@
 import React from "react";
+import { LuCat } from "react-icons/lu";
+import { PiDog } from "react-icons/pi";
+import { FaHandsHelping } from "react-icons/fa";
+import { FaDonate } from "react-icons/fa";
 
 const options = [
   {
     text: "Adopt a Dog",
-    icon: "🐶",
+    icon: <PiDog />,
     action: "Find your perfect canine companion"
   },
   {
     text: "Adopt a Cat",
-    icon: "🐱",
+    icon: <LuCat />,
     action: "Discover your feline friend"
   },
   {
     text: "Volunteer",
-    icon: "🤝",
+    icon: <FaHandsHelping />,
     action: "Help animals in need"
   },
   {
     text: "Donate",
-    icon: "💖",
+    icon: <FaDonate />,
     action: "Support our mission"
   },
 ];
