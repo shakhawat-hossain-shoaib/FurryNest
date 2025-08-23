@@ -8,33 +8,48 @@ import Blog from "./components/Blog";
 import SuccessStories from "./components/SuccessStories";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
-import SignIn from "./components/SignIn";
+import AuthPage from "./components/AuthPage";
 import "./App.css";
 
 function App() {
-  const [showSignIn, setShowSignIn] = useState(false);
+  const [showAuthPage, setShowAuthPage] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   const handleJoinUsClick = () => {
-    setShowSignIn(true);
+    setShowAuthPage(true);
   };
 
-  const handleCloseSignIn = () => {
-    setShowSignIn(false);
+  const handleCloseAuth = () => {
+    setShowAuthPage(false);
+  };
+
+  const handleSignInSuccess = (userData) => {
+    setIsAuthenticated(true);
+    setUser(userData);
+    setShowAuthPage(false);
+    // You can redirect to a dashboard or show a success message
+    alert(`Welcome ${userData}! You have successfully signed in.`);
   };
 
   return (
     <div className="container">
       <Header onJoinUsClick={handleJoinUsClick} />
-      <Hero />
-      <QuickNav />
-      <About />
-      <FeaturedPets />
-      <Blog />
-      <SuccessStories />
-      <Newsletter />
-      <Footer />
       
-      {showSignIn && <SignIn onClose={handleCloseSignIn} />}
+      {showAuthPage ? (
+        <AuthPage onClose={handleCloseAuth} onSignInSuccess={handleSignInSuccess} />
+      ) : (
+        <>
+          <Hero />
+          <QuickNav />
+          <About />
+          <FeaturedPets />
+          <Blog />
+          <SuccessStories />
+          <Newsletter />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }
