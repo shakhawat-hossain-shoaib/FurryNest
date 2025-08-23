@@ -8,7 +8,7 @@ const Footer = () => (
       <a href="#"><span role="img" aria-label="instagram">📸</span></a>
       <a href="#"><span role="img" aria-label="tiktok">🎵</span></a>
     </div>
-    <p>Designed by Your Name | Powered by Webflow</p>
+    <p>| Designed by Shoaib, Hasan, Rifat |</p>
   </footer>
 );
 
