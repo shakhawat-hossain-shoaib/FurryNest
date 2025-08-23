@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Header = () => {
+const Header = ({ onJoinUsClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -22,6 +22,9 @@ const Header = () => {
             <li><a href="#blog" className="nav-link">Blog</a></li>
             <li><a href="#contact" className="nav-link">Contact Us</a></li>
           </ul>
+          <button className="header-join-btn" onClick={onJoinUsClick}>
+            Join Us
+          </button>
         </nav>
 
         <button 
