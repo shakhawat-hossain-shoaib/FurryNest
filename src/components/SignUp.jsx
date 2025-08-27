@@ -41,8 +41,8 @@ const SignUp = ({ onClose, onSwitchToSignIn }) => {
             <label>
               Email Address
               <input
-                name="email"
-                type="email"
+                name="e-mail"
+                type="e-mail"
                 value={form.email}
                 onChange={handleChange}
                 required
