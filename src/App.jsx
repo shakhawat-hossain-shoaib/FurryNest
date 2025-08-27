@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import QuickNav from "./components/QuickNav";
@@ -9,6 +10,9 @@ import SuccessStories from "./components/SuccessStories";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import AuthPage from "./components/AuthPage";
+import AdoptDog from "./components/AdoptDog";
+import AdoptCat from "./components/AdoptCat";
+import PetDetails from "./components/PetDetails";
 import "./App.css";
 
 function App() {
@@ -39,16 +43,23 @@ function App() {
       {showAuthPage ? (
         <AuthPage onClose={handleCloseAuth} onSignInSuccess={handleSignInSuccess} />
       ) : (
-        <>
-          <Hero />
-          <QuickNav />
-          <About />
-          <FeaturedPets />
-          <Blog />
-          <SuccessStories />
-          <Newsletter />
-          <Footer />
-        </>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero />
+              <QuickNav />
+              <About />
+              <FeaturedPets />
+              <Blog />
+              <SuccessStories />
+              <Newsletter />
+              <Footer />
+            </>
+          } />
+          <Route path="/adopt-dog" element={<AdoptDog />} />
+          <Route path="/adopt-cat" element={<AdoptCat />} />
+          <Route path="/pet/:type/:id" element={<PetDetails />} />
+        </Routes>
       )}
     </div>
   );
