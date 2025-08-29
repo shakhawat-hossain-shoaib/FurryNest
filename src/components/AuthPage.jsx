@@ -18,7 +18,7 @@ const AuthPage = ({ onClose, onSignInSuccess }) => {
 
   const handleSignInSubmit = (e) => {
     e.preventDefault();
-    // Redirect to dashboard or main page after successful sign in
+    
     onSignInSuccess(signInForm.email);
   };
 
@@ -28,7 +28,7 @@ const AuthPage = ({ onClose, onSignInSuccess }) => {
       alert("Passwords don't match!");
       return;
     }
-    // Redirect to dashboard or main page after successful sign up
+    
     onSignInSuccess(signUpForm.name);
   };
 
