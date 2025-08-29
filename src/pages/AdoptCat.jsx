@@ -24,7 +24,7 @@ const cats = [
     age: "2 years",
     breed: "Persian",
     food: "Royal Canin Persian",
-    img: "https://plus.unsplash.com/premium_photo-1723514553579-b589437b3b06?w=400&h=400&fit=facearea&facepad=4",
+    img: "https://images.stockcake.com/public/a/3/6/a364f296-5434-4054-9d79-41133f23cbc8_large/majestic-persian-cat-stockcake.jpg",
     description: "Whiskers is a beautiful Persian cat with long, luxurious fur. He's very calm and loves to be brushed and pampered.",
     owner: "Maria Garcia",
   },
