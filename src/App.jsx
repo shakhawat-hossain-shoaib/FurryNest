@@ -1,66 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
-import QuickNav from "./components/QuickNav";
-import About from "./components/About";
-import FeaturedPets from "./components/FeaturedPets";
-import Blog from "./components/Blog";
-import SuccessStories from "./components/SuccessStories";
-import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
-import AuthPage from "./components/AuthPage";
-import AdoptDog from "./components/AdoptDog";
-import AdoptCat from "./components/AdoptCat";
-import PetDetails from "./components/PetDetails";
+import Home from "./pages/Home";
+import AdoptDog from "./pages/AdoptDog";
+import AdoptCat from "./pages/AdoptCat";
+import PetDetails from "./pages/PetDetails";
+import WaysToHelp from "./pages/WaysToHelp";
+import Blog from "./pages/Blog";
+import ContactUs from "./pages/ContactUs";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import "./App.css";
 
 function App() {
-  const [showAuthPage, setShowAuthPage] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
-
-  const handleJoinUsClick = () => {
-    setShowAuthPage(true);
-  };
-
-  const handleCloseAuth = () => {
-    setShowAuthPage(false);
-  };
-
-  const handleSignInSuccess = (userData) => {
-    setIsAuthenticated(true);
-    setUser(userData);
-    setShowAuthPage(false);
-    // You can redirect to a dashboard or show a success message
-    alert(`Welcome ${userData}! You have successfully signed in.`);
-  };
-
   return (
     <div className="container">
-      <Header onJoinUsClick={handleJoinUsClick} />
-      
-      {showAuthPage ? (
-        <AuthPage onClose={handleCloseAuth} onSignInSuccess={handleSignInSuccess} />
-      ) : (
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <QuickNav />
-              <About />
-              <FeaturedPets />
-              <Blog />
-              <SuccessStories />
-              <Newsletter />
-              <Footer />
-            </>
-          } />
-          <Route path="/adopt-dog" element={<AdoptDog />} />
-          <Route path="/adopt-cat" element={<AdoptCat />} />
-          <Route path="/pet/:type/:id" element={<PetDetails />} />
-        </Routes>
-      )}
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/adopt-dog" element={<AdoptDog />} />
+        <Route path="/adopt-cat" element={<AdoptCat />} />
+        <Route path="/pet/:type/:id" element={<PetDetails />} />
+        <Route path="/ways-to-help" element={<WaysToHelp />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
