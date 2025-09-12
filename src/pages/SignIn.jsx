@@ -56,8 +56,7 @@ const SignIn = () => {
     
       // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      alert(`Welcome back! Signing in with ${form.email}`);
+  await new Promise(resolve => setTimeout(resolve, 1500));
       // mark as logged in (simple client-side flag)
       if (form.rememberMe) {
         localStorage.setItem('isLoggedIn', 'true');
