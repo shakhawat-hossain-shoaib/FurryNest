@@ -11,6 +11,8 @@ import Blog from "./pages/Blog";
 import ContactUs from "./pages/ContactUs";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 
 function App() {
@@ -26,6 +28,14 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
       <Footer />
