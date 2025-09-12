@@ -54,11 +54,18 @@ const SignIn = () => {
     
     setIsLoading(true);
     
-    // Simulate API call
+      // Simulate API call
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       alert(`Welcome back! Signing in with ${form.email}`);
-      navigate("/");
+      // mark as logged in (simple client-side flag)
+      if (form.rememberMe) {
+        localStorage.setItem('isLoggedIn', 'true');
+      } else {
+        // session-only flag: still use localStorage for simplicity
+        localStorage.setItem('isLoggedIn', 'true');
+      }
+      navigate("/dashboard");
     } catch (error) {
       alert('Sign in failed. Please try again.');
     } finally {
