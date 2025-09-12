@@ -7,6 +7,7 @@ const SignUp = () => {
   const [form, setForm] = useState({
     fullName: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
     acceptTerms: false
@@ -64,18 +65,21 @@ const SignUp = () => {
       newErrors.email = 'Please enter a valid email';
     }
     
+    if (!form.phone) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!/^\d{10,15}$/.test(form.phone)) {
+      newErrors.phone = 'Enter a valid phone number';
+    }
     if (!form.password) {
       newErrors.password = 'Password is required';
     } else if (form.password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters';
     }
-    
     if (!form.confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password';
     } else if (form.password !== form.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
-    
     if (!form.acceptTerms) {
       newErrors.acceptTerms = 'You must accept the terms and conditions';
     }
@@ -86,18 +90,28 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (!validateForm()) {
       return;
     }
-    
     setIsLoading(true);
-    
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      alert(`Account created successfully for ${form.fullName} with email ${form.email}`);
-      navigate("/");
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.fullName,
+          email: form.email,
+          phone: form.phone,
+          password: form.password
+        })
+      });
+      if (res.ok) {
+        // Optionally show a toast or message
+        navigate("/signin");
+      } else {
+        const data = await res.json();
+        alert(data.message || "Account creation failed. Please try again.");
+      }
     } catch (error) {
       alert('Account creation failed. Please try again.');
     } finally {
@@ -133,6 +147,22 @@ const SignUp = () => {
                 />
               </div>
               {errors.fullName && <span className="error-message">{errors.fullName}</span>}
+            </div>
+            <div className="form-group">
+              <label htmlFor="phone">Phone Number</label>
+              <div className="input-wrapper">
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="Enter your phone number"
+                  className={errors.phone ? 'error' : ''}
+                  required
+                />
+              </div>
+              {errors.phone && <span className="error-message">{errors.phone}</span>}
             </div>
             
             <div className="form-group">

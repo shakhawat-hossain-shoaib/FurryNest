@@ -13,13 +13,23 @@ export const registerUser = async (req, res) => {
 };
 export const createUser = async (req, res) => {
     try {
-    const { name, email, phone, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new UserInfo({ name, email, phone, password: hashedPassword });
-    await res.status(201).json({ message: "User created successfully" });
-    await user.save();
+        const { name, email, phone, password } = req.body;
+        // Check if user already exists
+        const existing = await UserInfo.findOne({ email });
+        if (existing) {
+            return res.status(409).json({ message: "Email already registered" });
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new UserInfo({ name, email, phone, password: hashedPassword });
+        await user.save();
+        res.status(201).json({ message: "User created successfully" });
     } catch (error) {
-        res.status(500).json({ message: "Server error" });
+        if (error.code === 11000) {
+            // Duplicate key error
+            res.status(409).json({ message: "Email already registered" });
+        } else {
+            res.status(500).json({ message: "Server error" });
+        }
     }
 };
 
