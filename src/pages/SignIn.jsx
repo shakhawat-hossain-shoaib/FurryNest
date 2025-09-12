@@ -20,7 +20,7 @@ const SignIn = () => {
       ...form, 
       [name]: type === 'checkbox' ? checked : value 
     });
-    // Clear error when user starts typing
+    
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
     }
@@ -58,11 +58,11 @@ const SignIn = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       alert(`Welcome back! Signing in with ${form.email}`);
-      // mark as logged in (simple client-side flag)
+      
       if (form.rememberMe) {
         localStorage.setItem('isLoggedIn', 'true');
       } else {
-        // session-only flag: still use localStorage for simplicity
+        
         localStorage.setItem('isLoggedIn', 'true');
       }
       navigate("/dashboard");
