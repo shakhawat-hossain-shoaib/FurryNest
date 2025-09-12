@@ -1,0 +1,269 @@
+/* Global Styles */
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #fdf8fa;
+  color: #312f32;
+  font-family: 'Poppins', 'Baloo 2', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Global responsive helpers */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Fluid container padding for all sections */
+section, .container {
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
+}
+
+.container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+/* Header Styles */
+.header {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  position: relative;
+}
+
+.logo h1 {
+  color: #654f6f;
+  font-family: 'Baloo 2', cursive;
+  font-size: 2.2rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2.5rem;
+}
+
+.nav-link {
+  color: #312f32;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link:hover {
+  color: #ff9cac;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ff9cac;
+  transition: width 0.2s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.header-join-btn {
+  background: #6556ec;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-join-btn:hover {
+  background: #5a4fd8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(101, 86, 236, 0.3);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 30px;
+  height: 24px;
+  justify-content: space-between;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background: #312f32;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: 'Baloo 2', cursive;
+  color: #312f32;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Section spacing */
+section {
+  padding: 4rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Footer Styles */
+footer {
+  background: #312f32;
+  color: #fff;
+  padding: 3rem 0 1rem;
+  margin-top: 4rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: #ff9cac;
+}
+
+footer p {
+  text-align: center;
+  margin: 0;
+  color: #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  section {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .header-container {
+    padding: 0 1rem;
+  }
+  h1 {
+    font-size: 1.9rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    z-index: 1001;
+  }
+  .nav-menu.active {
+    display: flex;
+  }
+  .nav-list {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .header-join-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+  
+  .header-container {
+    padding: 0 1rem;
+  }
+  
+  .logo h1 {
+    font-size: 1.8rem;
+  }
+}
