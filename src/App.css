@@ -127,6 +127,13 @@ section, .container {
   box-shadow: 0 4px 15px rgba(101, 86, 236, 0.3);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 8px; /* slight shift to the right */
+}
+
 .hamburger {
   display: none;
   flex-direction: column;
