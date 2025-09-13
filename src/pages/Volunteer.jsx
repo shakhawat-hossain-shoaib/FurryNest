@@ -16,6 +16,12 @@ const Volunteer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    // simple client-side validation
+    if (!form.name || !form.email || !form.phone) {
+      alert('Please fill name, email and phone');
+      setLoading(false);
+      return;
+    }
     try {
       const res = await fetch('/api/volunteers', {
         method: 'POST',
@@ -82,16 +88,20 @@ const Volunteer = () => {
                 <textarea name="message" placeholder="Message" value={form.message} onChange={handleChange} />
               </div>
               <div className="form-group">
-                <button type="submit" className="auth-submit-btn" disabled={loading}>{loading ? 'Sending...' : 'Sign Up to Volunteer'}</button>
+                <button type="submit" className="auth-submit-btn" disabled={loading}>
+                  {loading ? <span className="spinner" /> : 'Sign Up to Volunteer'}
+                </button>
               </div>
             </div>
           </form>
           ) : (
             <div className="success-card">
+              <div className="success-icon">✓</div>
               <h3>Thank you for volunteering!</h3>
               <p>We've received your details. Our team will reach out to you soon.</p>
-              <div style={{ marginTop: 12 }}>
+              <div style={{ marginTop: 12, display: 'flex', gap: 12, justifyContent: 'center' }}>
                 <Link to="/" className="back-link">Back to Home</Link>
+                <button className="auth-submit-btn" onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', availability: '', message: '' }); }}>Submit another</button>
               </div>
             </div>
           )}

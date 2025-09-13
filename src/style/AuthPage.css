@@ -225,6 +225,33 @@
 .success-card h3 { margin: 0 0 0.5rem 0; color: #2f855a; }
 .success-card p { color: #555; }
 
+/* Spinner for submit buttons */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(0,0,0,0.12);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.success-icon{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#e6ffef;
+  color:#2f855a;
+  font-size:28px;
+  margin: 0 auto 12px auto;
+  box-shadow: 0 6px 18px rgba(47,133,90,0.08);
+}
+
+@keyframes spin{ to { transform: rotate(360deg); } }
+
 /* Align back-button with auth-container content when placed inside */
 .auth-container .back-button{
   max-width: 900px;

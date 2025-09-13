@@ -16,6 +16,11 @@ const Donate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    if (!form.name || !form.email || !form.amount) {
+      alert('Please provide name, email and amount');
+      setLoading(false);
+      return;
+    }
     try {
       const res = await fetch('/api/donations', {
         method: 'POST',
@@ -81,16 +86,18 @@ const Donate = () => {
                 <textarea name="message" placeholder="Message (optional)" value={form.message} onChange={handleChange} />
               </div>
               <div className="form-group">
-                <button type="submit" className="auth-submit-btn" disabled={loading}>{loading ? 'Processing...' : 'Donate'}</button>
+                <button type="submit" className="auth-submit-btn" disabled={loading}>{loading ? <span className="spinner" /> : 'Donate'}</button>
               </div>
             </div>
           </form>
           ) : (
             <div className="success-card">
+              <div className="success-icon">✓</div>
               <h3>Thank you for your donation!</h3>
               <p>Your support helps us care for animals — we appreciate you.</p>
-              <div style={{ marginTop: 12 }}>
+              <div style={{ marginTop: 12, display: 'flex', gap: 12, justifyContent: 'center' }}>
                 <Link to="/" className="back-link">Back to Home</Link>
+                <button className="auth-submit-btn" onClick={() => { setSubmitted(false); setForm({ name: '', email: '', amount: '', method: '', message: '' }); }}>Donate again</button>
               </div>
             </div>
           )}
