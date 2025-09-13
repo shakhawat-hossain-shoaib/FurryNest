@@ -29,7 +29,8 @@ const Header = ({ onJoinUsClick }) => {
                    <li><Link to="/adopt-cat" className="nav-link">Adopt a Cat</Link></li>
                    <li><Link to="/ways-to-help" className="nav-link">Ways to Help</Link></li>
                    <li><Link to="/blog" className="nav-link">Blog</Link></li>
-                  <li><Link to="/contact" className="nav-link">Contact Us</Link></li>
+                   <li><Link to="/add" className="nav-link">Add Pets</Link></li>
+                   <li><Link to="/contact" className="nav-link">Contact Us</Link></li>
                 </ul>
                 {isLoggedIn ? (
                   <div className="header-actions">

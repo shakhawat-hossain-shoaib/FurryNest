@@ -18,13 +18,13 @@ const cats = [
     id: 1,
     name: "Whiskers",
     location: "Downtown Cat Haven",
-    address: "123 Main St, Downtown",
+    address: "123 Main St",
     phone: "+1 (555) 123-4567",
     gender: "Male",
     age: "2 years",
     breed: "Persian",
     food: "Royal Canin Persian",
-    img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=400&fit=crop&crop=face",
+    img: "https://images.unsplash.com/photo-1415369629372-26f2fe60c467?w=400&h=400&fit=crop&crop=face",
     description: "Whiskers is a beautiful Persian cat with long, luxurious fur. He's very calm and loves to be brushed and pampered.",
     owner: "Maria Garcia",
   },
@@ -32,7 +32,7 @@ const cats = [
     id: 2,
     name: "Luna",
     location: "Westside Feline Rescue",
-    address: "456 Oak Ave, Westside",
+    address: "456 Oak Ave",
     phone: "+1 (555) 234-5678",
     gender: "Female",
     age: "1 year",
@@ -46,7 +46,7 @@ const cats = [
     id: 3,
     name: "Shadow",
     location: "Northside Cat Care",
-    address: "789 Pine Rd, Northside",
+    address: "789 Pine Rd",
     phone: "+1 (555) 345-6789",
     gender: "Male",
     age: "4 years",
@@ -60,7 +60,7 @@ const cats = [
     id: 4,
     name: "Mittens",
     location: "Eastside Pet Haven",
-    address: "321 Elm St, Eastside",
+    address: "321 Elm St",
     phone: "+1 (555) 456-7890",
     gender: "Female",
     age: "3 years",
@@ -74,7 +74,7 @@ const cats = [
     id: 5,
     name: "Tiger",
     location: "Central Cat Rescue",
-    address: "654 Maple Dr, Central",
+    address: "654 Maple ",
     phone: "+1 (555) 567-8901",
     gender: "Male",
     age: "5 years",
@@ -88,7 +88,7 @@ const cats = [
     id: 6,
     name: "Princess",
     location: "Southside Animal Shelter",
-    address: "987 Cedar Ln, Southside",
+    address: "987 Cedar Ln",
     phone: "+1 (555) 678-9012",
     gender: "Female",
     age: "6 years",
@@ -102,7 +102,7 @@ const cats = [
     id: 7,
     name: "Oliver",
     location: "Downtown Cat Rescue",
-    address: "555 Meow Ave, Downtown",
+    address: "555 Meow Ave",
     phone: "+1 (555) 789-0123",
     gender: "Male",
     age: "2 years",
@@ -116,7 +116,7 @@ const cats = [
     id: 8,
     name: "Lily",
     location: "Westside Feline Care",
-    address: "777 Purr Way, Westside",
+    address: "777 Purr Way",
     phone: "+1 (555) 890-1234",
     gender: "Female",
     age: "1 year",
@@ -187,10 +187,6 @@ const AdoptCat = () => {
                 <div className="detail-item">
                   <FaMapMarkerAlt className="detail-icon" />
                   <span>{cat.address}</span>
-                </div>
-                <div className="detail-item">
-                  <FaMapMarkerAlt className="detail-icon" />
-                  <span>{cat.location}</span>
                 </div>
                 <div className="detail-item">
                   <FaPhone className="detail-icon" />

@@ -8,6 +8,7 @@ import AdoptCat from "./pages/AdoptCat";
 import PetDetails from "./pages/PetDetails";
 import WaysToHelp from "./pages/WaysToHelp";
 import Blog from "./pages/Blog";
+import Add from "./pages/Add";
 import ContactUs from "./pages/ContactUs";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -26,7 +27,8 @@ function App() {
         <Route path="/pet/:type/:id" element={<PetDetails />} />
         <Route path="/ways-to-help" element={<WaysToHelp />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/contact" element={<ContactUs />} />
+  <Route path="/add" element={<Add />} />
+  <Route path="/contact" element={<ContactUs />} />
         <Route path="/signin" element={<SignIn />} />
         <Route
           path="/dashboard"

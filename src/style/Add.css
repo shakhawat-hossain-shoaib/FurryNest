@@ -1,0 +1,120 @@
+.add-pet-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  background: #fff;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.add-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #ff69b4;
+}
+
+.add-btn-row {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.add-btn {
+  background: #fff;
+  color: #ff69b4;
+  border: 2px solid #ff69b4;
+  border-radius: 20px;
+  padding: 1.2rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 0;
+}
+.add-btn.selected, .add-btn:hover {
+  background: #ff69b4;
+  color: #fff;
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  padding: 2rem 0;
+}
+
+.add-image-box {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.file-name {
+  margin-top: 0.5rem;
+  color: #ff69b4;
+  font-weight: 500;
+}
+
+.add-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 350px;
+  margin-bottom: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem 0;
+}
+
+.add-field-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-label {
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #ff69b4;
+}
+
+.add-input {
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  color: #222;
+  background: #fff;
+  margin-bottom: 0.2rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.submit-btn {
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+.submit-btn:hover {
+  background: #e055a1;
+}
+
+.add-message {
+  margin-top: 1rem;
+  color: #ff69b4;
+  font-weight: 600;
+  text-align: center;
+}
