@@ -32,7 +32,7 @@ const Add = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!petType || !image) {
-      setMessage("Please select pet type and upload an image.");
+      setMessage("Please select pet type and upload an image");
       return;
     }
     const data = new FormData();
