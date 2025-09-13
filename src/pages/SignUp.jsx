@@ -95,7 +95,7 @@ const SignUp = () => {
     }
     setIsLoading(true);
     try {
-      const res = await fetch("/api/users", {
+      const res = await fetch("http://localhost:5000/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -105,11 +105,11 @@ const SignUp = () => {
           password: form.password
         })
       });
+      const data = await res.json();
       if (res.ok) {
-        // Optionally show a toast or message
+        alert("Account created successfully!");
         navigate("/signin");
       } else {
-        const data = await res.json();
         alert(data.message || "Account creation failed. Please try again.");
       }
     } catch (error) {
