@@ -214,3 +214,10 @@
   background: #f3f4f6;
   transform: translateX(-4px);
 }
+
+/* Align back-button with auth-container content when placed inside */
+.auth-container .back-button{
+  max-width: 900px;
+  margin: 0 0 1rem 0; /* align to container top */
+  padding-left: 1rem; /* visually line up with card padding */
+}

@@ -37,10 +37,10 @@ const Donate = () => {
 
   return (
     <div className="auth-page">
-      <div className="back-button">
-        <Link to="/" className="back-link"><FaArrowLeft /> Back to Home</Link>
-      </div>
       <div className="auth-container wide">
+        <div className="back-button">
+          <Link to="/" className="back-link"><FaArrowLeft /> Back to Home</Link>
+        </div>
         <div className="auth-card">
           <div className="auth-header">
             <h2>Support FurryNest</h2>

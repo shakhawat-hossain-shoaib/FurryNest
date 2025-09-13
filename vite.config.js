@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      // forward API calls to backend during development
+      '/api': 'http://localhost:5000',
       '/upload': 'http://localhost:3000',
     },
   },
