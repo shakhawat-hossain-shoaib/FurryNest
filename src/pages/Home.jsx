@@ -25,13 +25,13 @@ const QuickNav = () => {
       text: "Volunteer",
       icon: <FaHandsHelping />,
       action: "Help animals in need",
-      link: "#"
+      link: "/volunteer"
     },
     {
       text: "Donate",
       icon: <FaDonate />,
       action: "Support our mission",
-      link: "#"
+      link: "/donate"
     },
   ];
 
