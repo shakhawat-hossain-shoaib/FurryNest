@@ -215,6 +215,16 @@
   transform: translateX(-4px);
 }
 
+.success-card {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fff 0%, #f7f9fc 100%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+.success-card h3 { margin: 0 0 0.5rem 0; color: #2f855a; }
+.success-card p { color: #555; }
+
 /* Align back-button with auth-container content when placed inside */
 .auth-container .back-button{
   max-width: 900px;

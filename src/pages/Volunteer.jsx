@@ -23,10 +23,18 @@ const Volunteer = () => {
         body: JSON.stringify(form),
       });
       if (res.ok) {
-        navigate('/');
+        // show success message instead of immediate navigation
+        setSubmitted(true);
       } else {
-        const data = await res.json();
-        alert(data.message || 'Failed to register volunteer');
+        let text = '';
+        try {
+          const data = await res.json();
+          text = data.message || JSON.stringify(data);
+        } catch (e) {
+          text = await res.text();
+        }
+        console.error('Volunteer POST failed', res.status, text);
+        alert(`Failed to register volunteer: ${text}`);
       }
     } catch (err) {
       alert('Failed to register volunteer');
@@ -34,6 +42,8 @@ const Volunteer = () => {
       setLoading(false);
     }
   };
+
+  const [submitted, setSubmitted] = useState(false);
 
   return (
     <div className="auth-page">
@@ -46,6 +56,7 @@ const Volunteer = () => {
             <h2>Volunteer with FurryNest</h2>
             <p className="auth-subtitle">Join our volunteer network and help animals in need</p>
           </div>
+          {!submitted ? (
           <form onSubmit={handleSubmit} className="auth-form two-column">
             <div>
               <div className="form-group">
@@ -75,6 +86,15 @@ const Volunteer = () => {
               </div>
             </div>
           </form>
+          ) : (
+            <div className="success-card">
+              <h3>Thank you for volunteering!</h3>
+              <p>We've received your details. Our team will reach out to you soon.</p>
+              <div style={{ marginTop: 12 }}>
+                <Link to="/" className="back-link">Back to Home</Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

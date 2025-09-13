@@ -23,10 +23,17 @@ const Donate = () => {
         body: JSON.stringify({ ...form, amount: Number(form.amount) }),
       });
       if (res.ok) {
-        navigate('/');
+        setSubmitted(true);
       } else {
-        const data = await res.json();
-        alert(data.message || 'Failed to send donation');
+        let text = '';
+        try {
+          const data = await res.json();
+          text = data.message || JSON.stringify(data);
+        } catch (e) {
+          text = await res.text();
+        }
+        console.error('Donation POST failed', res.status, text);
+        alert(`Failed to send donation: ${text}`);
       }
     } catch (err) {
       alert('Failed to send donation');
@@ -34,6 +41,8 @@ const Donate = () => {
       setLoading(false);
     }
   };
+
+  const [submitted, setSubmitted] = useState(false);
 
   return (
     <div className="auth-page">
@@ -46,6 +55,7 @@ const Donate = () => {
             <h2>Support FurryNest</h2>
             <p className="auth-subtitle">Your donations help us care for more animals</p>
           </div>
+          {!submitted ? (
           <form onSubmit={handleSubmit} className="auth-form two-column">
             <div>
               <div className="form-group">
@@ -75,6 +85,15 @@ const Donate = () => {
               </div>
             </div>
           </form>
+          ) : (
+            <div className="success-card">
+              <h3>Thank you for your donation!</h3>
+              <p>Your support helps us care for animals — we appreciate you.</p>
+              <div style={{ marginTop: 12 }}>
+                <Link to="/" className="back-link">Back to Home</Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
