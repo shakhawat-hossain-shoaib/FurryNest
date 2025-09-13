@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Upload route (no MongoDB, just save file and respond)
+
 app.post("/upload", upload.single("image"), async (req, res) => {
   try {
     res.json({ message: "Image uploaded successfully", data: {
