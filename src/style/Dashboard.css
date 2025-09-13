@@ -172,14 +172,34 @@
 }
 
 .stat-icon {
-  font-size: 2.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 15px;
-  border-radius: 15px;
-  color: white;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.notification-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+  font-size: 1.2rem;
+}
+
+.notification-item.info .notification-icon {
+  color: #2196F3;
+}
+
+.notification-item.warning .notification-icon {
+  color: #FF9800;
+}
+
+.notification-item.success .notification-icon {
+  color: #4CAF50;
 }
 
 .stat-content {
