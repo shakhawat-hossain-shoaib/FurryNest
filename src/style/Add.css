@@ -1,4 +1,30 @@
-/*add.css*/
+.add-image-box input[type="file"]::-webkit-file-upload-button {
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.add-image-box input[type="file"]::file-selector-button {
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.add-image-box input[type="file"]::-webkit-file-upload-button:hover,
+.add-image-box input[type="file"]::file-selector-button:hover {
+  background: #e055a1;
+}
+
 .add-pet-page {
   display: flex;
   flex-direction: column;
