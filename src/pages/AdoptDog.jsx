@@ -8,7 +8,7 @@ const dogs = [
     id: 1,
     name: "Max",
     location: "Downtown Shelter",
-    address: "123 Main St, Downtown",
+    address: "123 Main St",
     phone: "+1 (555) 123-4567",
     gender: "Male",
     age: "3 years",
@@ -22,7 +22,7 @@ const dogs = [
     id: 2,
     name: "Luna",
     location: "Westside Rescue",
-    address: "456 Oak Ave, Westside",
+    address: "456 Oak Ave",
     phone: "+1 (555) 234-5678",
     gender: "Female",
     age: "2 years",
@@ -36,7 +36,7 @@ const dogs = [
     id: 3,
     name: "Buddy",
     location: "Northside Animal Care",
-    address: "789 Pine Rd, Northside",
+    address: "789 Pine Rd",
     phone: "+1 (555) 345-6789",
     gender: "Male",
     age: "5 years",
@@ -50,7 +50,7 @@ const dogs = [
     id: 4,
     name: "Daisy",
     location: "Eastside Pet Haven",
-    address: "321 Elm St, Eastside",
+    address: "321 Elm St",
     phone: "+1 (555) 456-7890",
     gender: "Female",
     age: "1 year",
@@ -64,7 +64,7 @@ const dogs = [
     id: 5,
     name: "Rocky",
     location: "Central Dog Rescue",
-    address: "654 Maple Dr, Central",
+    address: "654 Maple Dr",
     phone: "+1 (555) 567-8901",
     gender: "Male",
     age: "4 years",
@@ -78,7 +78,7 @@ const dogs = [
     id: 6,
     name: "Bella",
     location: "Southside Animal Shelter",
-    address: "987 Cedar Ln, Southside",
+    address: "987 Cedar Ln",
     phone: "+1 (555) 678-9012",
     gender: "Female",
     age: "6 years",
@@ -92,7 +92,7 @@ const dogs = [
     id: 7,
     name: "Charlie",
     location: "Downtown Pet Rescue",
-    address: "555 Bark Ave, Downtown",
+    address: "555 Bark Ave",
     phone: "+1 (555) 789-0123",
     gender: "Male",
     age: "2 years",
@@ -106,7 +106,7 @@ const dogs = [
     id: 8,
     name: "Sophie",
     location: "Westside Canine Care",
-    address: "777 Wag Way, Westside",
+    address: "777 Wag Way",
     phone: "+1 (555) 890-1234",
     gender: "Female",
     age: "4 years",
@@ -173,10 +173,6 @@ const AdoptDog = () => {
                 <div className="detail-item">
                   <FaMapMarkerAlt className="detail-icon" />
                   <span>{dog.address}</span>
-                </div>
-                <div className="detail-item">
-                  <FaMapMarkerAlt className="detail-icon" />
-                  <span>{dog.location}</span>
                 </div>
                 <div className="detail-item">
                   <FaPhone className="detail-icon" />

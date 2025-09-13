@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaCalendarAlt, FaUser, FaHeart, FaComments } from "react-icons/fa";
 import "../style/Blog.css";
+
+function NewsletterSubscribe() {
+  const [subscribed, setSubscribed] = useState(false);
+  return (
+    <div className="newsletter-form">
+      <input type="email" placeholder="Enter your email address" disabled={subscribed} />
+      <button
+        className={`subscribe-btn${subscribed ? " subscribed" : ""}`}
+        onClick={() => setSubscribed(true)}
+        disabled={subscribed}
+      >
+        {subscribed ? "Subscribed" : "Subscribe"}
+      </button>
+    </div>
+  );
+}
 
 const Blog = () => {
   const blogPosts = [
@@ -126,11 +142,9 @@ const Blog = () => {
         <div className="blog-newsletter">
           <h2>Stay Connected</h2>
           <p>Subscribe to our newsletter for the latest updates, adoption stories, and pet care tips.</p>
-          <div className="newsletter-form">
-            <input type="email" placeholder="Enter your email address" />
-            <button className="subscribe-btn">Subscribe</button>
-          </div>
+          <NewsletterSubscribe />
         </div>
+
       </div>
     </div>
   );

@@ -174,8 +174,19 @@
   min-height: 45px;
 }
 
+
 .detail-item:hover {
   background: #f3f4f6;
+}
+
+
+.detail-item span {
+  font-weight: 500;
+  line-height: 1.4;
+  word-break: break-word;
+  overflow: visible;
+  white-space: normal;
+  padding: 2px 0;
 }
 
 .detail-icon {
