@@ -13,6 +13,8 @@ import ContactUs from "./pages/ContactUs";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
+import Volunteer from "./pages/Volunteer";
+import Donate from "./pages/Donate";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 
@@ -28,6 +30,8 @@ function App() {
         <Route path="/ways-to-help" element={<WaysToHelp />} />
         <Route path="/blog" element={<Blog />} />
   <Route path="/add" element={<Add />} />
+  <Route path="/volunteer" element={<Volunteer />} />
+  <Route path="/donate" element={<Donate />} />
   <Route path="/contact" element={<ContactUs />} />
         <Route path="/signin" element={<SignIn />} />
         <Route
