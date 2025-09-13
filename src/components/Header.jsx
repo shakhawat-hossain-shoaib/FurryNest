@@ -24,14 +24,16 @@ const Header = ({ onJoinUsClick }) => {
         </div>
         
         <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-                           <ul className="nav-list">
-                   <li><Link to="/adopt-dog" className="nav-link">Adopt a Dog</Link></li>
-                   <li><Link to="/adopt-cat" className="nav-link">Adopt a Cat</Link></li>
-                   <li><Link to="/ways-to-help" className="nav-link">Ways to Help</Link></li>
-                   <li><Link to="/blog" className="nav-link">Blog</Link></li>
-                   <li><Link to="/add" className="nav-link">Add Pets</Link></li>
-                   <li><Link to="/contact" className="nav-link">Contact Us</Link></li>
-                </ul>
+                          <ul className="nav-list">
+                            <li><Link to="/adopt-dog" className="nav-link">Adopt a Dog</Link></li>
+                            <li><Link to="/adopt-cat" className="nav-link">Adopt a Cat</Link></li>
+                            <li><Link to="/ways-to-help" className="nav-link">Ways to Help</Link></li>
+                            <li><Link to="/blog" className="nav-link">Blog</Link></li>
+                            {isLoggedIn && (
+                              <li><Link to="/add" className="nav-link">Add Pets</Link></li>
+                            )}
+                            <li><Link to="/contact" className="nav-link">Contact Us</Link></li>
+                          </ul>
                 {isLoggedIn ? (
                   <div className="header-actions">
                     <Link to="/dashboard" className="nav-link">Dashboard</Link>
