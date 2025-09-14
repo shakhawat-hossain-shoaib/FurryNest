@@ -20,9 +20,15 @@ const SignUp = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    const newValue = type === 'checkbox' 
+      ? checked 
+      : name === 'fullName' 
+        ? value.trimStart() // Only trim from the start for name field
+        : value;
+    
     setForm({ 
       ...form, 
-      [name]: type === 'checkbox' ? checked : value 
+      [name]: newValue
     });
     // Clear error when user starts typing
     if (errors[name]) {
@@ -90,6 +96,13 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Trim the fullName before validation
+    setForm(prev => ({
+      ...prev,
+      fullName: prev.fullName.trim()
+    }));
+    
     if (!validateForm()) {
       return;
     }
