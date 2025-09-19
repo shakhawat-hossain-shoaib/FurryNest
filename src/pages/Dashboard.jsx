@@ -45,6 +45,25 @@ const Dashboard = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Volunteers state
+  const [volunteers, setVolunteers] = useState([]);
+  const [volLoading, setVolLoading] = useState(true);
+  const [volError, setVolError] = useState(null);
+
+  useEffect(() => {
+    // Fetch volunteers from backend
+    fetch('/api/volunteers')
+      .then(res => res.json())
+      .then(data => {
+        setVolunteers(Array.isArray(data) ? data : []);
+        setVolLoading(false);
+      })
+      .catch(err => {
+        setVolError('Failed to load volunteers');
+        setVolLoading(false);
+      });
+  }, []);
+
   // Dynamic stats based on selected period
   const getStats = () => {
     const formatMoney = (amount) => {
@@ -205,6 +224,41 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Volunteers Section */}
+        <div className="dashboard-section">
+          <h3>Volunteers</h3>
+          {volLoading ? (
+            <div className="volunteers-loading">Loading volunteers...</div>
+          ) : volError ? (
+            <div className="volunteers-error">{volError}</div>
+          ) : volunteers.length === 0 ? (
+            <div className="volunteers-empty">No volunteers registered yet.</div>
+          ) : (
+            <div className="volunteers-list">
+              <table className="volunteers-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Availability</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {volunteers.map(vol => (
+                    <tr key={vol._id || vol.email}>
+                      <td>{vol.name}</td>
+                      <td>{vol.email}</td>
+                      <td>{vol.phone}</td>
+                      <td>{vol.availability || '-'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </div>

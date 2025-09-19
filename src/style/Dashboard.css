@@ -1,3 +1,60 @@
+/* Volunteers Table - Cute Style */
+.volunteers-list {
+  margin-top: 18px;
+  overflow-x: auto;
+}
+.volunteers-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #f8f9ff;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(102,126,234,0.08);
+  overflow: hidden;
+}
+.volunteers-table th {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-weight: 600;
+  padding: 16px 12px;
+  border: none;
+  font-size: 1.05rem;
+}
+.volunteers-table td {
+  padding: 14px 12px;
+  background: #fff;
+  color: #444;
+  font-size: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+}
+.volunteers-table tr:last-child td {
+  border-bottom: none;
+}
+.volunteers-table tr {
+  transition: background 0.2s;
+}
+.volunteers-table tr:hover td {
+  background: #f0f4ff;
+}
+.volunteers-table th:first-child {
+  border-top-left-radius: 18px;
+}
+.volunteers-table th:last-child {
+  border-top-right-radius: 18px;
+}
+.volunteers-table tr:last-child td:first-child {
+  border-bottom-left-radius: 18px;
+}
+.volunteers-table tr:last-child td:last-child {
+  border-bottom-right-radius: 18px;
+}
+.volunteers-loading, .volunteers-error, .volunteers-empty {
+  text-align: center;
+  color: #667eea;
+  font-size: 1.1rem;
+  padding: 18px 0;
+}
 .dashboard-page {
   padding: 40px 20px;
 }
