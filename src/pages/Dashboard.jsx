@@ -1,17 +1,41 @@
 import React, { useState, useEffect } from "react";
 import "../style/Dashboard.css";
-import { FaPaw, FaHeart, FaUsers, FaClipboardList, FaPlus, FaFileAlt, 
+import { FaPaw, FaHeart, FaUsers, FaDollarSign, FaPlus, FaFileAlt, 
   FaCalendarAlt, FaHospital, FaChartBar, FaBell, FaCheckCircle, 
   FaExclamationCircle, FaInfoCircle } from "react-icons/fa";
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [selectedPeriod, setSelectedPeriod] = useState('month');
+  const [volunteerCount, setVolunteerCount] = useState(0);
+  const [totalDonations, setTotalDonations] = useState(0);
   const [notifications] = useState([
     { id: 1, message: "New adoption application for Max", type: "info", time: "2 hours ago", icon: <FaInfoCircle /> },
     { id: 2, message: "Volunteer training scheduled for tomorrow", type: "warning", time: "4 hours ago", icon: <FaExclamationCircle /> },
     { id: 3, message: "Luna has been successfully adopted!", type: "success", time: "1 day ago", icon: <FaCheckCircle /> }
   ]);
+
+  // Fetch volunteer and donation data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch volunteer count
+        const volunteerRes = await fetch('http://localhost:5000/api/volunteers');
+        const volunteerData = await volunteerRes.json();
+        setVolunteerCount(volunteerData.length);
+
+        // Fetch donations
+        const donationsRes = await fetch('http://localhost:5000/api/donations');
+        const donationsData = await donationsRes.json();
+        const total = donationsData.reduce((sum, donation) => sum + donation.amount, 0);
+        setTotalDonations(total);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Update time every minute
   useEffect(() => {
@@ -23,24 +47,31 @@ const Dashboard = () => {
 
   // Dynamic stats based on selected period
   const getStats = () => {
+    const formatMoney = (amount) => {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(amount);
+    };
+
     const baseStats = {
       month: [
         { title: "Pets Available", value: 128, change: "+5", icon: <FaPaw /> },
         { title: "Adoptions This Month", value: 12, change: "+3", icon: <FaHeart /> },
-        { title: "Volunteer Signups", value: 34, change: "+8", icon: <FaUsers /> },
-        { title: "Pending Applications", value: 18, change: "+2", icon: <FaClipboardList /> }
+        { title: "Volunteer Signups", value: volunteerCount, change: `+${volunteerCount}`, icon: <FaUsers /> },
+        { title: "Total Donations", value: formatMoney(totalDonations), change: "+", icon: <FaDollarSign /> }
       ],
       week: [
         { title: "Pets Available", value: 128, change: "+2", icon: <FaPaw /> },
         { title: "Adoptions This Week", value: 3, change: "+1", icon: <FaHeart /> },
-        { title: "Volunteer Signups", value: 8, change: "+3", icon: <FaUsers /> },
-        { title: "Pending Applications", value: 18, change: "+5", icon: <FaClipboardList /> }
+        { title: "Volunteer Signups", value: volunteerCount, change: `+${volunteerCount}`, icon: <FaUsers /> },
+        { title: "Total Donations", value: formatMoney(totalDonations), change: "+", icon: <FaDollarSign /> }
       ],
       year: [
         { title: "Pets Available", value: 128, change: "+15", icon: <FaPaw /> },
         { title: "Adoptions This Year", value: 156, change: "+45", icon: <FaHeart /> },
-        { title: "Volunteer Signups", value: 289, change: "+67", icon: <FaUsers /> },
-        { title: "Pending Applications", value: 18, change: "-8", icon: <FaClipboardList /> }
+        { title: "Volunteer Signups", value: volunteerCount, change: `+${volunteerCount}`, icon: <FaUsers /> },
+        { title: "Total Donations", value: formatMoney(totalDonations), change: "+", icon: <FaDollarSign /> }
       ]
     };
     return baseStats[selectedPeriod];
@@ -114,9 +145,11 @@ const Dashboard = () => {
             <div key={stat.title} className="stat-card">
               <div className="stat-icon">{stat.icon}</div>
               <div className="stat-content">
-                <h3>{stat.value}</h3>
+                <h3 className={stat.title === "Total Donations" ? "donation-value" : ""}>
+                  {stat.value}
+                </h3>
                 <p>{stat.title}</p>
-                <span className="stat-change">{stat.change}</span>
+                {stat.change && <span className="stat-change">{stat.change}</span>}
               </div>
             </div>
           ))}
