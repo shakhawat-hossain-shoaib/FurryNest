@@ -40,13 +40,14 @@ const SignUp = () => {
     if (!password) return { strength: 0, label: '', color: '' };
     
     let strength = 0;
+    // Check length
     if (password.length >= 8) strength++;
-    if (/[a-z]/.test(password)) strength++;
-    if (/[A-Z]/.test(password)) strength++;
+    // Check for letters
+    if (/[A-Za-z]/.test(password)) strength++;
+    // Check for numbers
     if (/[0-9]/.test(password)) strength++;
-    if (/[^A-Za-z0-9]/.test(password)) strength++;
     
-    const labels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+    const labels = ['Very Weak', 'Weak', 'Fair', 'Good'];
     const colors = ['#ff4444', '#ff8800', '#ffaa00', '#00aa00', '#008800'];
     
     return {
@@ -80,6 +81,10 @@ const SignUp = () => {
       newErrors.password = 'Password is required';
     } else if (form.password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters';
+    } else if (!/[A-Za-z]/.test(form.password)) {
+      newErrors.password = 'Password must contain at least one letter';
+    } else if (!/[0-9]/.test(form.password)) {
+      newErrors.password = 'Password must contain at least one number';
     }
     if (!form.confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password';

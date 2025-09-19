@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaMapMarkerAlt, FaPhone, FaVenusMars, FaBirthdayCake, FaPaw, FaUtensils, FaArrowLeft, FaUser } from "react-icons/fa";
 import "../style/AdoptDog.css";
+import AddedPets from "../components/AddedPets";
 
 const dogs = [
   {
@@ -211,6 +212,7 @@ const AdoptDog = () => {
           <p>No dogs found matching your search criteria.</p>
         </div>
       )}
+      <AddedPets petType="dog" />
     </div>
   );
 };

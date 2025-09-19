@@ -22,6 +22,12 @@ const QuickNav = () => {
       link: "/adopt-cat"
     },
     {
+      text: "Add Pet",
+      icon: <FaHeart />,
+      action: "Add a new pet listing",
+      link: "/add"
+    },
+    {
       text: "Volunteer",
       icon: <FaHandsHelping />,
       action: "Help animals in need",

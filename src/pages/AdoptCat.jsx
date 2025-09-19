@@ -12,6 +12,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 import "../style/AdoptCat.css";
+import AddedPets from "../components/AddedPets";
 
 const cats = [
   {
@@ -225,6 +226,7 @@ const AdoptCat = () => {
           <p>No cats found matching your search criteria.</p>
         </div>
       )}
+      <AddedPets petType="cat" />
     </div>
   );
 };
