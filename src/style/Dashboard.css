@@ -271,6 +271,11 @@
   line-height: 1;
 }
 
+.stat-content h3.donation-value {
+  font-size: 2rem;
+  color: #2E7D32;
+}
+
 .stat-content p {
   margin: 8px 0 5px 0;
   color: #666;
