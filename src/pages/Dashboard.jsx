@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import "../style/Dashboard.css";
 import { FaPaw, FaHeart, FaUsers, FaDollarSign, FaPlus, FaFileAlt, 
   FaCalendarAlt, FaHospital, FaChartBar, FaBell, FaCheckCircle, 
-  FaExclamationCircle, FaInfoCircle } from "react-icons/fa";
+  FaExclamationCircle, FaInfoCircle, FaHandsHelping } from "react-icons/fa";
+import { GiDogHouse, GiCat } from 'react-icons/gi';
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [selectedPeriod, setSelectedPeriod] = useState('month');
-  const [volunteerCount, setVolunteerCount] = useState(0);
   const [totalDonations, setTotalDonations] = useState(0);
   const [notifications] = useState([
     { id: 1, message: "New adoption application for Max", type: "info", time: "2 hours ago", icon: <FaInfoCircle /> },
@@ -16,26 +16,20 @@ const Dashboard = () => {
     { id: 3, message: "Luna has been successfully adopted!", type: "success", time: "1 day ago", icon: <FaCheckCircle /> }
   ]);
 
-  // Fetch volunteer and donation data
+  // Fetch donation data
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDonations = async () => {
       try {
-        // Fetch volunteer count
-        const volunteerRes = await fetch('http://localhost:5000/api/volunteers');
-        const volunteerData = await volunteerRes.json();
-        setVolunteerCount(volunteerData.length);
-
-        // Fetch donations
         const donationsRes = await fetch('http://localhost:5000/api/donations');
         const donationsData = await donationsRes.json();
         const total = donationsData.reduce((sum, donation) => sum + donation.amount, 0);
         setTotalDonations(total);
       } catch (error) {
-        console.error('Error fetching dashboard data:', error);
+        console.error('Error fetching donations:', error);
       }
     };
 
-    fetchData();
+    fetchDonations();
   }, []);
 
   // Update time every minute
@@ -46,23 +40,59 @@ const Dashboard = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Volunteers state
+  // Volunteers and signups state
   const [volunteers, setVolunteers] = useState([]);
+  const [volunteerStats, setVolunteerStats] = useState({ total: 0, active: 0 });
   const [volLoading, setVolLoading] = useState(true);
   const [volError, setVolError] = useState(null);
 
   useEffect(() => {
     // Fetch volunteers from backend
-    fetch('/api/volunteers')
-      .then(res => res.json())
-      .then(data => {
+    const fetchVolunteers = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/volunteers');
+        const data = await response.json();
         setVolunteers(Array.isArray(data) ? data : []);
+        setVolunteerStats({
+          total: data.length,
+          active: data.filter(v => v.status === 'active').length
+        });
         setVolLoading(false);
-      })
-      .catch(err => {
-        setVolError('Failed to load volunteers');
+      } catch (error) {
+        setVolError(`Failed to load volunteers: ${error.message}`);
         setVolLoading(false);
-      });
+      }
+    };
+    fetchVolunteers();
+  }, []);
+
+  // Pet count state
+  const [petCounts, setPetCounts] = useState({ 
+    total: 0, 
+    dogs: 0, 
+    cats: 0,
+    adoptedTotal: 0,
+    adoptedDogs: 0,
+    adoptedCats: 0 
+  });
+
+  // Fetch pet counts
+  useEffect(() => {
+    const fetchPetCounts = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/pets/count');
+        const data = await response.json();
+        setPetCounts({
+          ...data,
+          adoptedTotal: data.adoptedDogs + data.adoptedCats || 0,
+          adoptedDogs: data.adoptedDogs || 0,
+          adoptedCats: data.adoptedCats || 0
+        });
+      } catch (error) {
+        console.error('Error fetching pet counts:', error);
+      }
+    };
+    fetchPetCounts();
   }, []);
 
   // Dynamic stats based on selected period
@@ -76,33 +106,152 @@ const Dashboard = () => {
 
     const baseStats = {
       month: [
-        { title: "Pets Available", value: 128, change: "+5", icon: <FaPaw /> },
-        { title: "Adoptions This Month", value: 12, change: "+3", icon: <FaHeart /> },
-        { title: "Volunteer Signups", value: volunteerCount, change: `+${volunteerCount}`, icon: <FaUsers /> },
-        { title: "Total Donations", value: formatMoney(totalDonations), change: "+", icon: <FaDollarSign /> }
+        { 
+          title: "Available Pets", 
+          value: petCounts.total, 
+          details: [
+            { 
+              icon: <GiDogHouse className="pet-type-icon" />, 
+              count: petCounts.dogs,
+              label: "Dogs Available"
+            },
+            { 
+              icon: <GiCat className="pet-type-icon" />, 
+              count: petCounts.cats,
+              label: "Cats Available"
+            }
+          ],
+          icon: <FaPaw className="stats-main-icon" />
+        },
+        { 
+          title: "Adopted Pets", 
+          value: petCounts.adoptedTotal,
+          details: [
+            { 
+              icon: <GiDogHouse className="pet-type-icon adopted" />, 
+              count: petCounts.adoptedDogs,
+              label: "Dogs Adopted"
+            },
+            { 
+              icon: <GiCat className="pet-type-icon adopted" />, 
+              count: petCounts.adoptedCats,
+              label: "Cats Adopted"
+            }
+          ],
+          icon: <FaHeart className="stats-main-icon" />
+        },
+        { 
+          title: "Volunteer Signups", 
+          value: volunteerStats.total, 
+          change: `${volunteerStats.active} Active Volunteers`,
+          icon: <FaHandsHelping /> 
+        },
+        { 
+          title: "Total Donations", 
+          value: formatMoney(totalDonations), 
+          change: "Current Total", 
+          icon: <FaDollarSign /> 
+        }
       ],
       week: [
-        { title: "Pets Available", value: 128, change: "+2", icon: <FaPaw /> },
-        { title: "Adoptions This Week", value: 3, change: "+1", icon: <FaHeart /> },
-        { title: "Volunteer Signups", value: volunteerCount, change: `+${volunteerCount}`, icon: <FaUsers /> },
-        { title: "Total Donations", value: formatMoney(totalDonations), change: "+", icon: <FaDollarSign /> }
+        { 
+          title: "Available Pets", 
+          value: petCounts.total, 
+          details: [
+            { 
+              icon: <GiDogHouse className="pet-type-icon" />, 
+              count: petCounts.dogs,
+              label: "Dogs Available"
+            },
+            { 
+              icon: <GiCat className="pet-type-icon" />, 
+              count: petCounts.cats,
+              label: "Cats Available"
+            }
+          ],
+          icon: <FaPaw className="stats-main-icon" />
+        },
+        { 
+          title: "Adopted Pets", 
+          value: petCounts.adoptedTotal,
+          details: [
+            { 
+              icon: <GiDogHouse className="pet-type-icon adopted" />, 
+              count: petCounts.adoptedDogs,
+              label: "Dogs Adopted"
+            },
+            { 
+              icon: <GiCat className="pet-type-icon adopted" />, 
+              count: petCounts.adoptedCats,
+              label: "Cats Adopted"
+            }
+          ],
+          icon: <FaHeart className="stats-main-icon" />
+        },
+        { 
+          title: "Volunteer Signups", 
+          value: volunteerStats.total, 
+          change: `${volunteerStats.active} Active Volunteers`,
+          icon: <FaHandsHelping /> 
+        },
+        { 
+          title: "Total Donations", 
+          value: formatMoney(totalDonations), 
+          change: "Current Total", 
+          icon: <FaDollarSign /> 
+        }
       ],
       year: [
-        { title: "Pets Available", value: 128, change: "+15", icon: <FaPaw /> },
-        { title: "Adoptions This Year", value: 156, change: "+45", icon: <FaHeart /> },
-        { title: "Volunteer Signups", value: volunteerCount, change: `+${volunteerCount}`, icon: <FaUsers /> },
-        { title: "Total Donations", value: formatMoney(totalDonations), change: "+", icon: <FaDollarSign /> }
+        { 
+          title: "Available Pets", 
+          value: petCounts.total, 
+          details: [
+            { 
+              icon: <GiDogHouse className="pet-type-icon" />, 
+              count: petCounts.dogs,
+              label: "Dogs Available"
+            },
+            { 
+              icon: <GiCat className="pet-type-icon" />, 
+              count: petCounts.cats,
+              label: "Cats Available"
+            }
+          ],
+          icon: <FaPaw className="stats-main-icon" />
+        },
+        { 
+          title: "Adopted Pets", 
+          value: petCounts.adoptedTotal,
+          details: [
+            { 
+              icon: <GiDogHouse className="pet-type-icon adopted" />, 
+              count: petCounts.adoptedDogs,
+              label: "Dogs Adopted"
+            },
+            { 
+              icon: <GiCat className="pet-type-icon adopted" />, 
+              count: petCounts.adoptedCats,
+              label: "Cats Adopted"
+            }
+          ],
+          icon: <FaHeart className="stats-main-icon" />
+        },
+        { 
+          title: "Volunteer Signups", 
+          value: volunteerStats.total, 
+          change: `${volunteerStats.active} Active Volunteers`,
+          icon: <FaHandsHelping /> 
+        },
+        { 
+          title: "Total Donations", 
+          value: formatMoney(totalDonations), 
+          change: "Current Total", 
+          icon: <FaDollarSign /> 
+        }
       ]
     };
     return baseStats[selectedPeriod];
   };
-
-  const recentActivities = [
-    { id: 1, activity: "Bella (Golden Retriever) added to available pets", time: "10 min ago", type: "add" },
-    { id: 2, activity: "Application approved for Charlie", time: "1 hour ago", type: "approve" },
-    { id: 3, activity: "New volunteer Sarah Johnson registered", time: "3 hours ago", type: "volunteer" },
-    { id: 4, activity: "Max's adoption completed", time: "5 hours ago", type: "adopt" }
-  ];
 
   const quickActions = [
     { title: "Add New Pet", description: "Register a new pet for adoption", icon: <FaPlus />, color: "#4CAF50" },
@@ -163,13 +312,27 @@ const Dashboard = () => {
         <div className="dashboard-stats">
           {getStats().map((stat) => (
             <div key={stat.title} className="stat-card">
-              <div className="stat-icon">{stat.icon}</div>
+              {stat.icon && <div className="stat-icon">{stat.icon}</div>}
               <div className="stat-content">
                 <h3 className={stat.title === "Total Donations" ? "donation-value" : ""}>
                   {stat.value}
                 </h3>
                 <p>{stat.title}</p>
-                {stat.change && <span className="stat-change">{stat.change}</span>}
+                {stat.details ? (
+                  <div className="pet-type-details">
+                    {stat.details.map((detail, index) => (
+                      <div key={index} className="pet-type-item">
+                        {detail.icon}
+                        <div className="pet-info">
+                          <span className="pet-count">{detail.count}</span>
+                          <span className="pet-label">{detail.label}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  stat.change && <span className="stat-change">{stat.change}</span>
+                )}
               </div>
             </div>
           ))}
@@ -199,22 +362,6 @@ const Dashboard = () => {
                     </div>
                   </div>
                 )
-              ))}
-            </div>
-          </div>
-
-          {/* Recent Activity */}
-          <div className="dashboard-section">
-            <h3>Recent Activity</h3>
-            <div className="activity-list">
-              {recentActivities.map((activity) => (
-                <div key={activity.id} className={`activity-item ${activity.type}`}>
-                  <div className="activity-indicator"></div>
-                  <div className="activity-content">
-                    <p>{activity.activity}</p>
-                    <span className="activity-time">{activity.time}</span>
-                  </div>
-                </div>
               ))}
             </div>
           </div>
