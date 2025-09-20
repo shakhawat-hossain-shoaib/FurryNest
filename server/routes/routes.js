@@ -4,6 +4,9 @@ import { createVolunteer, registerVolunteer } from "../controllers/volunteerCont
 import { createDonation, listDonations } from "../controllers/donationController.js";
 import { createContact } from "../controllers/contactController.js";
 import { uploadPet, getPets } from "../controllers/petController.js";
+import multer from "multer";
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -23,7 +26,7 @@ router.post("/donations", createDonation);
 router.post("/contact", createContact);
 
 // Pet routes
-router.post("/upload", uploadPet);
+router.post("/upload", upload.single("image"), uploadPet);
 router.get("/pets", getPets);
 
 export default router;
