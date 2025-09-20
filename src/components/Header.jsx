@@ -28,6 +28,7 @@ const Header = ({ onJoinUsClick }) => {
                             <li><Link to="/adopt-dog" className="nav-link">Adopt a Dog</Link></li>
                             <li><Link to="/adopt-cat" className="nav-link">Adopt a Cat</Link></li>
                             <li><Link to="/ways-to-help" className="nav-link">Ways to Help</Link></li>
+                            <li><Link to="/shop" className="nav-link">Shop</Link></li>
                             <li><Link to="/blog" className="nav-link">Blog</Link></li>
                             {isLoggedIn && (
                               <li><Link to="/add" className="nav-link">Add Pets</Link></li>

@@ -12,7 +12,7 @@ const QuickNav = () => {
     {
       text: "Adopt a Dog",
       icon: <PiDog />,
-      action: "Find your perfect canine companion",
+      action: "Find your perfect companion",
       link: "/adopt-dog"
     },
     {
@@ -341,6 +341,36 @@ export default function Home() {
       {/* Quick Navigation */}
       <QuickNav />
 
+      {/* Shop Section */}
+      <section className="shop-section">
+        <div className="shop-content">
+          <h2 className="shop-title">Healthy Bites, Happy Pets</h2>
+          <p className="shop-description">
+            Nutritious food and fun toys for your pets—all in one place
+          </p>
+          <div className="shop-categories">
+            <div className="category-card">
+              <div className="category-icon">🦴</div>
+              <h3>Dog Food</h3>
+              <p>Premium nutrition for your canine companion</p>
+            </div>
+            <div className="category-card">
+              <div className="category-icon">🐟</div>
+              <h3>Cat Food</h3>
+              <p>Quality meals for your feline friend</p>
+            </div>
+            <div className="category-card">
+              <div className="category-icon">🧸</div>
+              <h3>Pet Toys</h3>
+              <p>Fun and engaging toys for active pets</p>
+            </div>
+          </div>
+          <Link to="/shop" className="shop-btn">
+            Shop Now
+          </Link>
+        </div>
+      </section>
+
       {/* About Section */}
       <section className="about-section">
         <div className="about-content">
@@ -352,9 +382,9 @@ export default function Home() {
             mission is to make every adoption a success story filled with hope and
             care.
           </p>
-          <button className="about-btn">
+          <Link to="/contact" className="about-btn">
             Contact Us
-          </button>
+          </Link>
         </div>
       </section>
 
