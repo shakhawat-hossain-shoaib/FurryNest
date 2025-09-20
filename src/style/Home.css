@@ -100,9 +100,9 @@
 
 /* Quick Navigation Section */
 .quick-nav-section {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 4rem 1rem;
 }
 
 .quick-nav-section h2 {
@@ -113,13 +113,17 @@
 }
 
 .quick-nav {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
   margin-top: 2rem;
+  flex-wrap: nowrap;
 }
 
 .quick-card {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
   background: #fff;
   border-radius: 16px;
   padding: 2rem;
@@ -135,15 +139,15 @@
 }
 
 .quick-card .icon {
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: #667eea;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .quick-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   font-weight: 600;
 }
 
@@ -667,7 +671,12 @@
   }
   
   .quick-nav {
-    grid-template-columns: 1fr;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .quick-card {
+    flex: 1 1 140px;
   }
   
   .pet-grid {

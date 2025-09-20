@@ -3,6 +3,7 @@ import "../style/Dashboard.css";
 import { FaPaw, FaHeart, FaUsers, FaDollarSign, FaPlus, FaFileAlt, 
   FaCalendarAlt, FaHospital, FaChartBar, FaBell, FaCheckCircle, 
   FaExclamationCircle, FaInfoCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -181,13 +182,23 @@ const Dashboard = () => {
             <h3>Quick Actions</h3>
             <div className="quick-actions">
               {quickActions.map((action, index) => (
-                <div key={index} className="action-card" style={{'--action-color': action.color}}>
-                  <div className="action-icon">{action.icon}</div>
-                  <div className="action-content">
-                    <h4>{action.title}</h4>
-                    <p>{action.description}</p>
+                action.title === "Add New Pet" ? (
+                  <Link to="/add" key={index} className="action-card" style={{'--action-color': action.color}}>
+                    <div className="action-icon">{action.icon}</div>
+                    <div className="action-content">
+                      <h4>{action.title}</h4>
+                      <p>{action.description}</p>
+                    </div>
+                  </Link>
+                ) : (
+                  <div key={index} className="action-card" style={{'--action-color': action.color}}>
+                    <div className="action-icon">{action.icon}</div>
+                    <div className="action-content">
+                      <h4>{action.title}</h4>
+                      <p>{action.description}</p>
+                    </div>
                   </div>
-                </div>
+                )
               ))}
             </div>
           </div>

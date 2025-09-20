@@ -46,8 +46,7 @@ const Add = () => {
     data.append("diet", form.diet);
     data.append("type", petType);
     try {
-      await axios.post("/api/pets", data);
-      alert("Pet added");  
+      await axios.post("/upload", data);
       setMessage("Pet added successfully!");
       setForm({ name: "", location: "", phone: "", gender: "", age: "", breed: "", diet: "" });
       setImage(null);
