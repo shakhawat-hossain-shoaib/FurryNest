@@ -1,4 +1,8 @@
 
+<p align="center">
+  <img src="client/src/assets/images/FurryNest_1.png" alt="FurryNest Logo" width="180" />
+</p>
+
 # FurryNest
 
 FurryNest is a full-stack pet adoption and pet-care marketplace app.
@@ -179,9 +183,11 @@ Other:
 
 ## Screenshots
 
-![FurryNest Home](client/src/assets/images/FurryNest_1.png)
+### Home Page
+![Home Page](client/src/assets/images/Home_Page.png)
 
-![FurryNest Brand](client/src/assets/images/FurryNest.png)
+### Admin Dashboard
+![Admin Dashboard](client/src/assets/images/admin_dashboard.png)
 
 ## Troubleshooting
 
