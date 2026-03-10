@@ -47,8 +47,6 @@ FurryNest/
 |  |- models/
 |  |- routes/
 |  |- uploads/
-|  |- seedAdmins.js
-|  |- seedProducts.js
 |  `- server.js
 |- package.json
 `- README.md
@@ -88,12 +86,6 @@ Create `server/.env` with the following values:
 MONGO_URI=your_mongodb_connection_string
 PORT=5000
 JWT_SECRET=your_jwt_secret
-
-# Optional (needed for npm run seed:admin)
-ADMIN_NAME=FurryNest Admin
-ADMIN_EMAIL=admin@example.com
-ADMIN_PHONE=0000000000
-ADMIN_PASSWORD=StrongPassword123
 ```
 
 The backend explicitly loads environment variables from `server/.env`.
@@ -130,56 +122,6 @@ Server (`/server`):
 
 - `npm run dev` - start API server with nodemon
 - `npm run start` - start API server with node
-- `npm run seed` - seed sample products
-- `npm run seed:admin` - seed admin account from env values
-
-## API Summary
-
-Base path: `/api`
-
-Auth:
-
-- `POST /users` - register user
-- `POST /users/login` - user login
-- `GET /users/verify` - verify user token
-- `POST /admin/login` - admin login
-- `GET /admin/verify` - verify admin token
-
-Pets:
-
-- `GET /pets` - approved pets
-- `GET /pets/count` - pet counters
-- `GET /pets/:id` - pet details
-- `POST /pets/request` - submit pet request (multipart image)
-- `POST /pets` - create pet (admin)
-- `GET /pets/manage` - admin pet list
-- `GET /pets/pending` - pending pets (admin)
-- `PUT /pets/:id` - update pet (admin)
-- `PATCH /pets/:id/status` - update pet status (admin)
-- `PUT /pets/:id/approve` - approve pet (admin)
-- `DELETE /pets/:id/reject` - reject pet (admin)
-- `DELETE /pets/:id` - delete pet (admin)
-
-Shop:
-
-- `GET /products`, `GET /products/:id`
-- `POST /products`, `PUT /products/:id`, `DELETE /products/:id` (admin)
-- `PUT /products/:id/stock` (admin)
-- `POST /products/:id/reviews`
-
-Cart and Orders:
-
-- `GET /cart`, `POST /cart`, `PATCH /cart/:id`, `DELETE /cart/:id`, `DELETE /cart`
-- `POST /orders`, `GET /orders`
-- `GET /orders/stats`, `PATCH /orders/:id/status`, `DELETE /orders/:id` (admin)
-
-Other:
-
-- `GET/POST /volunteers`
-- `GET/POST /donations`
-- `POST /contact`
-- `GET /blogs`, `GET /blogs/:id`
-- `POST /blogs`, `PUT /blogs/:id`, `DELETE /blogs/:id` (admin)
 
 ## Screenshots
 
