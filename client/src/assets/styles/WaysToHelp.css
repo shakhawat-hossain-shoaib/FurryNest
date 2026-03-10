@@ -1,0 +1,240 @@
+/* WaysToHelp Page Styles */
+
+.ways-to-help-page {
+  width: 100%;
+  margin: 0;
+  padding: clamp(1rem, 2.8vw, 2rem);
+  background: linear-gradient(180deg, #f6f5ff 0%, #efedff 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.ways-to-help-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 20px 44px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.ways-to-help-header {
+  background: linear-gradient(125deg, #5f51d9 0%, #5f51d9 48%, #7f73ea 100%);
+  color: #fff;
+  padding: clamp(2.2rem, 6vw, 4rem) clamp(1.2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.ways-to-help-header h1 {
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  margin-bottom: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ways-to-help-header p {
+  font-size: 1rem;
+  max-width: 760px;
+  margin: 0 auto;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ways-to-help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+  padding: clamp(1.2rem, 4vw, 2.5rem);
+}
+
+.way-to-help-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 1.35rem;
+  border-radius: 18px;
+  border: 1px solid #e6defd;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfaff 100%);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  animation: wayCardEnter 0.55s ease both;
+}
+
+.way-to-help-card:nth-child(2) { animation-delay: 0.06s; }
+.way-to-help-card:nth-child(3) { animation-delay: 0.1s; }
+.way-to-help-card:nth-child(4) { animation-delay: 0.14s; }
+.way-to-help-card:nth-child(5) { animation-delay: 0.18s; }
+.way-to-help-card:nth-child(6) { animation-delay: 0.22s; }
+
+.way-to-help-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border-top: 4px solid var(--card-color, #a59bff);
+  pointer-events: none;
+}
+
+.way-to-help-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 38px rgba(15, 23, 42, 0.11);
+}
+
+.way-to-help-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  color: #5f51d9;
+  background: linear-gradient(135deg, var(--card-color, #d7d2ff), #ffffff);
+  margin-bottom: 1rem;
+}
+
+.way-card-head {
+  margin-bottom: 0.8rem;
+}
+
+.way-to-help-card h3 {
+  font-size: 1.28rem;
+  margin-bottom: 0.55rem;
+  color: #1f2937;
+}
+
+.way-to-help-card p {
+  color: #5b6472;
+  margin: 0;
+  line-height: 1.62;
+  font-size: 0.94rem;
+}
+
+.way-to-help-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.way-to-help-details li {
+  color: #475569;
+  margin-bottom: 0.58rem;
+  padding-left: 1.1rem;
+  position: relative;
+  font-size: 0.91rem;
+  line-height: 1.45;
+}
+
+.way-to-help-details li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5f51d9;
+  position: absolute;
+  top: 0.45rem;
+  left: 0;
+}
+
+.way-to-help-btn {
+  margin-top: 1rem;
+  width: 100%;
+  background: linear-gradient(135deg, #5f51d9 0%, #7f73ea 100%);
+  color: #fff;
+  border: none;
+  text-decoration: none;
+}
+
+.contact-section {
+  background: linear-gradient(180deg, #fbfaff 0%, #f1efff 100%);
+  padding: clamp(1.4rem, 4vw, 2.8rem);
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: clamp(1.55rem, 4.4vw, 2.1rem);
+  color: #1f2937;
+  margin-bottom: 0.7rem;
+}
+
+.contact-section > p {
+  max-width: 640px;
+  margin: 0 auto 1.35rem;
+  color: #4b5563;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.1rem;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.contact-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  padding: 0.55rem;
+  color: #5f51d9;
+  background: #ecebff;
+  flex-shrink: 0;
+}
+
+.contact-item h4 {
+  font-size: 1rem;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.contact-item p {
+  color: #4b5563;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+@keyframes wayCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .contact-info {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .ways-to-help-page {
+    padding: 0.9rem;
+  }
+
+  .ways-to-help-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+  }
+}
