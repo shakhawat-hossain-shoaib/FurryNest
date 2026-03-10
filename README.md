@@ -25,13 +25,17 @@ It includes public pet browsing, adoption workflow, admin moderation, blog manag
 
 ```text
 FurryNest/
-|- src/
-|  |- assets/
-|  |- components/
-|  |- context/
-|  |- pages/
-|  |- services/
-|  `- utils/
+|- client/
+|  |- src/
+|  |  |- assets/
+|  |  |- components/
+|  |  |- context/
+|  |  |- pages/
+|  |  |- services/
+|  |  `- utils/
+|  |- index.html
+|  |- vite.config.js
+|  `- package.json
 |- server/
 |  |- controllers/
 |  |- db/
@@ -42,8 +46,7 @@ FurryNest/
 |  |- seedAdmins.js
 |  |- seedProducts.js
 |  `- server.js
-|- index.html
-|- vite.config.js
+|- package.json
 `- README.md
 ```
 
@@ -65,7 +68,9 @@ cd FurryNest/FurryNest
 ### 2. Install dependencies
 
 ```bash
+cd client
 npm install
+cd ..
 cd server
 npm install
 cd ..
@@ -94,14 +99,13 @@ The backend explicitly loads environment variables from `server/.env`.
 Terminal 1 (backend):
 
 ```bash
-cd server
-npm run dev
+npm run dev:server
 ```
 
 Terminal 2 (frontend):
 
 ```bash
-npm run dev
+npm run dev:client
 ```
 
 Frontend runs on `http://localhost:5173`.
@@ -111,10 +115,12 @@ Vite proxies `/api` and `/uploads` requests to `http://localhost:5000`.
 
 Root (`/`):
 
-- `npm run dev` - start Vite dev server
-- `npm run build` - create production frontend build
-- `npm run preview` - preview production build locally
-- `npm run lint` - run ESLint
+- `npm run dev:client` - start Vite dev server from `client/`
+- `npm run build:client` - create production frontend build
+- `npm run preview:client` - preview production frontend build
+- `npm run lint:client` - run frontend ESLint
+- `npm run dev:server` - start API server with nodemon
+- `npm run start:server` - start API server with node
 
 Server (`/server`):
 
@@ -173,9 +179,9 @@ Other:
 
 ## Screenshots
 
-![FurryNest Home](src/assets/images/FurryNest_1.png)
+![FurryNest Home](client/src/assets/images/FurryNest_1.png)
 
-![FurryNest Brand](src/assets/images/FurryNest.png)
+![FurryNest Brand](client/src/assets/images/FurryNest.png)
 
 ## Troubleshooting
 

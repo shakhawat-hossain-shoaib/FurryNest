@@ -1,0 +1,13 @@
+{
+  "name": "furrynest-workspace",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev:client": "npm --prefix client run dev",
+    "build:client": "npm --prefix client run build",
+    "preview:client": "npm --prefix client run preview",
+    "lint:client": "npm --prefix client run lint",
+    "dev:server": "npm --prefix server run dev",
+    "start:server": "npm --prefix server run start"
+  }
+}
