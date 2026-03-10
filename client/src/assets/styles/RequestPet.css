@@ -1,0 +1,104 @@
+.request-pet-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--background-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.request-pet-container h2 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.request-pet-info {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.request-pet-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.request-pet-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.request-pet-form .form-group label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.request-pet-form .form-group input,
+.request-pet-form .form-group select,
+.request-pet-form .form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  transition: border-color 0.2s ease;
+}
+
+.request-pet-form .form-group input:focus,
+.request-pet-form .form-group select:focus,
+.request-pet-form .form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.request-pet-form .form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.error-message {
+  background: var(--error-bg);
+  color: var(--error-color);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+}
+
+.submit-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 1rem 2rem;
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.submit-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (min-width: 768px) {
+  .request-pet-form {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .request-pet-form .form-group:last-child,
+  .submit-button {
+    grid-column: span 2;
+  }
+}
