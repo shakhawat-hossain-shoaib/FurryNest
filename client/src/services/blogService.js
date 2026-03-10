@@ -6,6 +6,11 @@ export const blogService = {
     return res.data;
   },
 
+  getById: async (id) => {
+    const res = await api.get(`/blogs/${id}`);
+    return res.data;
+  },
+
   create: async (payload) => {
     const res = await api.post("/blogs", payload);
     return res.data;

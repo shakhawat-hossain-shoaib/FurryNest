@@ -1,11 +1,11 @@
 import React, { useMemo, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaCalendarAlt,
   FaUser,
   FaHeart,
   FaComments,
   FaSearch,
-  FaTimes,
   FaClock,
 } from "react-icons/fa";
 import { blogService } from "../services/blogService";
@@ -69,10 +69,10 @@ const createEmptyBlogForm = () => ({
 
 const Blog = () => {
   const { isAdmin } = useAuth();
+  const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
-  const [selectedPost, setSelectedPost] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -213,9 +213,6 @@ const Blog = () => {
 
     try {
       await blogService.remove(postId);
-      if (selectedPost?._id === postId) {
-        setSelectedPost(null);
-      }
       await loadBlogs();
     } catch (error) {
       alert(error.message || "Failed to delete blog post");
@@ -364,7 +361,7 @@ const Blog = () => {
               <button
                 type="button"
                 className="read-more-btn"
-                onClick={() => setSelectedPost(featuredPost)}
+                onClick={() => navigate(`/blog/${featuredPost.id}`)}
               >
                 Read Full Story
               </button>
@@ -415,7 +412,7 @@ const Blog = () => {
                   <button
                     type="button"
                     className="read-more-btn"
-                    onClick={() => setSelectedPost(post)}
+                    onClick={() => navigate(`/blog/${post.id}`)}
                   >
                     Read More
                   </button>
@@ -445,50 +442,6 @@ const Blog = () => {
           <NewsletterSubscribe />
         </div>
       </div>
-
-      {selectedPost && (
-        <div className="blog-modal-overlay" onClick={() => setSelectedPost(null)}>
-          <article
-            className="blog-modal"
-            onClick={(e) => e.stopPropagation()}
-            aria-modal="true"
-            role="dialog"
-          >
-            <button
-              type="button"
-              className="blog-modal-close"
-              onClick={() => setSelectedPost(null)}
-              aria-label="Close article"
-            >
-              <FaTimes />
-            </button>
-            <img
-              src={selectedPost.image}
-              alt={selectedPost.title}
-              className="blog-modal-image"
-            />
-            <div className="blog-modal-content">
-              <span className="blog-category">{selectedPost.category}</span>
-              <h3>{selectedPost.title}</h3>
-              <div className="blog-meta modal-meta">
-                <div className="blog-author">
-                  <FaUser />
-                  <span>{selectedPost.author}</span>
-                </div>
-                <div className="blog-date">
-                  <FaCalendarAlt />
-                  <span>{selectedPost.date}</span>
-                </div>
-                <div className="blog-read-time">
-                  <FaClock />
-                  <span>{selectedPost.readTime}</span>
-                </div>
-              </div>
-              <p>{selectedPost.content}</p>
-            </div>
-          </article>
-        </div>
-      )}
     </div>
   );
 };

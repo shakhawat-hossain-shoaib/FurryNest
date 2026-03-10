@@ -9,6 +9,7 @@ import AdoptCat from "./pages/AdoptCat";
 import PetDetails from "./pages/PetDetails";
 import WaysToHelp from "./pages/WaysToHelp";
 import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 import Add from "./pages/Add";
 import ContactUs from "./pages/ContactUs";
 import Shop from "./pages/Shop";
@@ -37,6 +38,7 @@ function App() {
             <Route path="/pet/:type/:id" element={<PetDetails />} />
             <Route path="/ways-to-help" element={<WaysToHelp />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogDetail />} />
             <Route
               path="/add"
               element={
