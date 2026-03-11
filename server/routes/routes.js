@@ -3,7 +3,7 @@ import { adminMiddleware, authMiddleware } from "../middleware/auth.js";
 import { createUser, loginUser, verifyToken } from "../controllers/userController.js";
 import { loginAdmin, verifyAdminToken } from "../controllers/adminController.js";
 import { createVolunteer, registerVolunteer } from "../controllers/volunteerController.js";
-import { createDonation, listDonations } from "../controllers/donationController.js";
+import { createDonation, listDonations, getDonationStats } from "../controllers/donationController.js";
 import { createContact, listContacts, updateContactStatus, deleteContact } from "../controllers/contactController.js";
 import {
 	createPet,
@@ -23,6 +23,12 @@ import { getProducts, getProductById, createProduct, updateProduct, deleteProduc
 import { getCartItems, addCartItem, updateCartItemQuantity, deleteCartItem, clearCart } from "../controllers/cartController.js";
 import { createOrder, getOrders, getOrderStats, updateOrderStatus, deleteOrder } from "../controllers/orderController.js";
 import { listBlogs, getBlogById, createBlog, updateBlog, deleteBlog } from "../controllers/blogController.js";
+import {
+  listSuccessStories,
+  createSuccessStory,
+  updateSuccessStory,
+  deleteSuccessStory,
+} from "../controllers/successStoryController.js";
 import upload from "../controllers/upload.js";
 
 const router = express.Router();
@@ -43,6 +49,7 @@ router.post("/volunteers", createVolunteer);
 // Donation routes
 router.get("/donations", listDonations);
 router.post("/donations", createDonation);
+router.get("/donations/stats", authMiddleware, adminMiddleware, getDonationStats);
 
 // Contact routes
 router.post("/contact", createContact);
@@ -93,5 +100,11 @@ router.get("/blogs/:id", getBlogById);
 router.post("/blogs", authMiddleware, adminMiddleware, createBlog);
 router.put("/blogs/:id", authMiddleware, adminMiddleware, updateBlog);
 router.delete("/blogs/:id", authMiddleware, adminMiddleware, deleteBlog);
+
+// Success stories routes
+router.get("/success-stories", listSuccessStories);
+router.post("/success-stories", authMiddleware, adminMiddleware, createSuccessStory);
+router.put("/success-stories/:id", authMiddleware, adminMiddleware, updateSuccessStory);
+router.delete("/success-stories/:id", authMiddleware, adminMiddleware, deleteSuccessStory);
 
 export default router;

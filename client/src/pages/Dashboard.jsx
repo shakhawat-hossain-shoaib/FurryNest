@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "../assets/styles/Dashboard.css";
-import { FaBoxOpen, FaEdit, FaPaw, FaSave, FaShoppingCart, FaTimes, FaTrash } from "react-icons/fa";
+import { FaBoxOpen, FaEdit, FaHandHoldingHeart, FaPaw, FaSave, FaShoppingCart, FaTimes, FaTrash } from "react-icons/fa";
 import { GiCat, GiDogHouse } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { petService } from "../services/petService";
 import { shopService } from "../services/shopService";
+import { donationService } from "../services/donationService";
 import { contactService } from "../services/contactService";
+import { successStoryService } from "../services/successStoryService";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 const STATUS_OPTIONS = ["pending", "approved", "adopted", "rejected"];
@@ -26,6 +28,13 @@ const emptyEditForm = {
   address: "",
   type: "dog",
   status: "pending",
+};
+
+const emptyStoryForm = {
+  petName: "",
+  author: "",
+  image: "",
+  story: "",
 };
 
 const Dashboard = () => {
@@ -51,24 +60,40 @@ const Dashboard = () => {
     processingOrders: 0,
     lowStockItems: 0,
   });
+  const [donationStats, setDonationStats] = useState({
+    totalAmount: 0,
+    donationCount: 0,
+    averageDonation: 0,
+    latestDonationAmount: 0,
+    latestDonationDate: null,
+    recentMessages: [],
+  });
   const [contacts, setContacts] = useState([]);
   const [contactLoading, setContactLoading] = useState(true);
   const [contactError, setContactError] = useState("");
+  const [successStories, setSuccessStories] = useState([]);
+  const [storyForm, setStoryForm] = useState(emptyStoryForm);
+  const [storyEditingId, setStoryEditingId] = useState("");
+  const [storyBusy, setStoryBusy] = useState(false);
+  const [storyError, setStoryError] = useState("");
 
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
       setContactLoading(true);
-      const [allPets, countResponse, orderStats, contactMessages] = await Promise.all([
+      const [allPets, countResponse, orderStats, donationSummary, contactMessages, stories] = await Promise.all([
         petService.getAllPets(),
         petService.getPetCount(),
         shopService.getOrderStats(),
+        donationService.getDonationStats(),
         contactService.getContacts(),
+        successStoryService.list(),
       ]);
       const countData = await countResponse.json();
 
       setPets(Array.isArray(allPets) ? allPets : []);
       setContacts(Array.isArray(contactMessages) ? contactMessages : []);
+      setSuccessStories(Array.isArray(stories) ? stories : []);
       setPetCounts({
         total: countData.total || 0,
         dogs: countData.dogs || 0,
@@ -83,6 +108,14 @@ const Dashboard = () => {
         totalRevenue: orderStats.totalRevenue || 0,
         processingOrders: orderStats.processingOrders || 0,
         lowStockItems: orderStats.lowStockItems || 0,
+      });
+      setDonationStats({
+        totalAmount: donationSummary.totalAmount || 0,
+        donationCount: donationSummary.donationCount || 0,
+        averageDonation: donationSummary.averageDonation || 0,
+        latestDonationAmount: donationSummary.latestDonationAmount || 0,
+        latestDonationDate: donationSummary.latestDonationDate || null,
+        recentMessages: Array.isArray(donationSummary.recentMessages) ? donationSummary.recentMessages : [],
       });
       setContactError("");
       setError("");
@@ -180,6 +213,11 @@ const Dashboard = () => {
 
   const totalRecords = pets.length;
 
+  const formatMoney = (value) => `$${Number(value || 0).toFixed(2)}`;
+  const latestDonationLabel = donationStats.latestDonationDate
+    ? new Date(donationStats.latestDonationDate).toLocaleDateString()
+    : "No donations yet";
+
   const formatContactDate = (value) => {
     if (!value) return "N/A";
     return new Date(value).toLocaleString();
@@ -205,6 +243,64 @@ const Dashboard = () => {
       setContacts((prev) => prev.filter((contact) => contact._id !== contactId));
     } catch (deleteError) {
       alert(deleteError?.response?.data?.message || "Failed to delete contact message");
+    }
+  };
+
+  const resetStoryForm = () => {
+    setStoryForm(emptyStoryForm);
+    setStoryEditingId("");
+    setStoryError("");
+  };
+
+  const startStoryEdit = (story) => {
+    setStoryEditingId(story._id);
+    setStoryError("");
+    setStoryForm({
+      petName: story.petName || "",
+      author: story.author || "",
+      image: story.image || "",
+      story: story.story || "",
+    });
+  };
+
+  const saveStory = async (event) => {
+    event.preventDefault();
+
+    if (!storyForm.petName.trim() || !storyForm.author.trim() || !storyForm.story.trim()) {
+      setStoryError("Pet name, author, and story are required");
+      return;
+    }
+
+    setStoryBusy(true);
+    setStoryError("");
+
+    try {
+      if (storyEditingId) {
+        await successStoryService.update(storyEditingId, storyForm);
+      } else {
+        await successStoryService.create(storyForm);
+      }
+      resetStoryForm();
+      await fetchDashboardData();
+    } catch (saveError) {
+      setStoryError(saveError?.response?.data?.message || "Failed to save success story");
+    } finally {
+      setStoryBusy(false);
+    }
+  };
+
+  const deleteStory = async (storyId) => {
+    const confirmed = window.confirm("Delete this success story?");
+    if (!confirmed) return;
+
+    try {
+      await successStoryService.remove(storyId);
+      if (storyEditingId === storyId) {
+        resetStoryForm();
+      }
+      await fetchDashboardData();
+    } catch (deleteError) {
+      alert(deleteError?.response?.data?.message || "Failed to delete success story");
     }
   };
 
@@ -275,7 +371,16 @@ const Dashboard = () => {
             <div className="stat-content">
               <h3>{marketStats.totalOrders}</h3>
               <p>Shop Orders</p>
-              <div className="market-stat-meta">Revenue ${Number(marketStats.totalRevenue || 0).toFixed(2)}</div>
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-icon donation-stat-icon">
+              <FaHandHoldingHeart />
+            </div>
+            <div className="stat-content">
+              <h3 className="donation-value">{formatMoney(donationStats.totalAmount)}</h3>
+              <p>Donations</p>
             </div>
           </div>
         </div>
@@ -283,6 +388,13 @@ const Dashboard = () => {
         <div className="dashboard-section">
           <h3>Marketplace</h3>
           <div className="market-overview-grid">
+            <div className="market-summary-card">
+              <div>
+                <span className="market-summary-label">Shop income</span>
+                <strong>{formatMoney(marketStats.totalRevenue)}</strong>
+              </div>
+              <FaShoppingCart />
+            </div>
             <div className="market-summary-card">
               <div>
                 <span className="market-summary-label">Orders in progress</span>
@@ -311,6 +423,65 @@ const Dashboard = () => {
                 <span>Filter orders and update fulfillment status</span>
               </div>
             </Link>
+          </div>
+        </div>
+
+        <div className="dashboard-section">
+          <h3>Donations</h3>
+          <div className="donation-overview-grid">
+            <div className="donation-summary-card">
+              <div>
+                <span className="market-summary-label">Total donated amount</span>
+                <strong>{formatMoney(donationStats.totalAmount)}</strong>
+              </div>
+              <FaHandHoldingHeart />
+            </div>
+            <div className="donation-summary-card">
+              <div>
+                <span className="market-summary-label">Total donations</span>
+                <strong>{donationStats.donationCount}</strong>
+              </div>
+              <FaHandHoldingHeart />
+            </div>
+            <div className="donation-summary-card">
+              <div>
+                <span className="market-summary-label">Average donation</span>
+                <strong>{formatMoney(donationStats.averageDonation)}</strong>
+              </div>
+              <FaHandHoldingHeart />
+            </div>
+            <div className="donation-summary-card">
+              <div>
+                <span className="market-summary-label">Latest donation</span>
+                <strong>{formatMoney(donationStats.latestDonationAmount)}</strong>
+                <span className="donation-date-meta">{latestDonationLabel}</span>
+              </div>
+              <FaHandHoldingHeart />
+            </div>
+          </div>
+
+          <div className="donation-messages-block">
+            <h4>Recent donor messages</h4>
+            {donationStats.recentMessages.length === 0 && (
+              <p className="donation-messages-empty">No donor messages yet.</p>
+            )}
+
+            {donationStats.recentMessages.length > 0 && (
+              <div className="donation-message-list">
+                {donationStats.recentMessages.map((item) => (
+                  <article key={item.id} className="donation-message-card">
+                    <div className="donation-message-head">
+                      <strong>{item.name || "Anonymous Donor"}</strong>
+                      <span>{formatMoney(item.amount)}</span>
+                    </div>
+                    <p className="donation-message-text">{item.message}</p>
+                    <p className="donation-message-meta">
+                      {item.method || "N/A"} · {item.createdAt ? new Date(item.createdAt).toLocaleString() : "Unknown time"}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -425,6 +596,70 @@ const Dashboard = () => {
                     )}
                   </div>
                 </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="dashboard-section">
+          <h3>Success Stories</h3>
+
+          <form className="story-admin-form" onSubmit={saveStory}>
+            <input
+              type="text"
+              placeholder="Pet name"
+              value={storyForm.petName}
+              onChange={(event) => setStoryForm((prev) => ({ ...prev, petName: event.target.value }))}
+            />
+            <input
+              type="text"
+              placeholder="Author"
+              value={storyForm.author}
+              onChange={(event) => setStoryForm((prev) => ({ ...prev, author: event.target.value }))}
+            />
+            <input
+              type="text"
+              placeholder="Image URL"
+              value={storyForm.image}
+              onChange={(event) => setStoryForm((prev) => ({ ...prev, image: event.target.value }))}
+            />
+            <textarea
+              placeholder="Success story"
+              value={storyForm.story}
+              onChange={(event) => setStoryForm((prev) => ({ ...prev, story: event.target.value }))}
+            />
+            {storyError && <p className="story-admin-error">{storyError}</p>}
+            <div className="story-admin-actions">
+              <button type="submit" className="approve-button" disabled={storyBusy}>
+                {storyBusy ? "Saving..." : storyEditingId ? "Update Story" : "Add Story"}
+              </button>
+              {storyEditingId && (
+                <button type="button" className="reject-button" onClick={resetStoryForm}>
+                  Cancel
+                </button>
+              )}
+            </div>
+          </form>
+
+          {successStories.length === 0 && <div className="pets-empty">No success stories found.</div>}
+
+          {successStories.length > 0 && (
+            <div className="story-admin-list">
+              {successStories.map((story) => (
+                <article key={story._id} className="story-admin-card">
+                  <h4>{story.petName}</h4>
+                  <p className="story-admin-author">{story.author}</p>
+                  <p className="story-admin-text">{story.story}</p>
+                  {story.image && <p className="story-admin-image-url">Image: {story.image}</p>}
+                  <div className="story-admin-actions">
+                    <button type="button" className="approve-button" onClick={() => startStoryEdit(story)}>
+                      <FaEdit /> Edit
+                    </button>
+                    <button type="button" className="reject-button" onClick={() => deleteStory(story._id)}>
+                      <FaTrash /> Delete
+                    </button>
+                  </div>
+                </article>
               ))}
             </div>
           )}

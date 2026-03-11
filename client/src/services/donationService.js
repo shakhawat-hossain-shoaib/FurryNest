@@ -1,6 +1,10 @@
 import api from './api';
 
 export const donationService = {
+  getDonationStats: async () => {
+    const response = await api.get('/donations/stats');
+    return response.data;
+  },
   getDonations: async () => {
     try {
       const response = await api.get('/donations');
