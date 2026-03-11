@@ -2,12 +2,8 @@ import api from './api';
 
 export const volunteerService = {
   getVolunteers: async () => {
-    try {
-      const response = await api.get('/volunteers');
-      return { ok: true, json: async () => response.data };
-    } catch (error) {
-      return { ok: false, json: async () => [] };
-    }
+    const response = await api.get('/volunteers');
+    return response.data;
   },
   createVolunteer: async (data) => {
     try {

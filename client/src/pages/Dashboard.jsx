@@ -8,6 +8,7 @@ import { shopService } from "../services/shopService";
 import { donationService } from "../services/donationService";
 import { contactService } from "../services/contactService";
 import { successStoryService } from "../services/successStoryService";
+import { volunteerService } from "../services/volunteerService";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 const STATUS_OPTIONS = ["pending", "approved", "adopted", "rejected"];
@@ -68,6 +69,9 @@ const Dashboard = () => {
     latestDonationDate: null,
     recentMessages: [],
   });
+  const [volunteers, setVolunteers] = useState([]);
+  const [volunteerLoading, setVolunteerLoading] = useState(true);
+  const [volunteerError, setVolunteerError] = useState("");
   const [contacts, setContacts] = useState([]);
   const [contactLoading, setContactLoading] = useState(true);
   const [contactError, setContactError] = useState("");
@@ -80,6 +84,7 @@ const Dashboard = () => {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
+      setVolunteerLoading(true);
       setContactLoading(true);
       const [allPets, countResponse, orderStats, donationSummary, contactMessages, stories] = await Promise.all([
         petService.getAllPets(),
@@ -117,6 +122,16 @@ const Dashboard = () => {
         latestDonationDate: donationSummary.latestDonationDate || null,
         recentMessages: Array.isArray(donationSummary.recentMessages) ? donationSummary.recentMessages : [],
       });
+
+      try {
+        const volunteerEntries = await volunteerService.getVolunteers();
+        setVolunteers(Array.isArray(volunteerEntries) ? volunteerEntries : []);
+        setVolunteerError("");
+      } catch (volunteerFetchError) {
+        setVolunteers([]);
+        setVolunteerError(volunteerFetchError?.response?.data?.message || "Failed to load volunteers");
+      }
+
       setContactError("");
       setError("");
     } catch (fetchError) {
@@ -125,6 +140,7 @@ const Dashboard = () => {
       setContactError(errorMessage);
     } finally {
       setLoading(false);
+      setVolunteerLoading(false);
       setContactLoading(false);
     }
   };
@@ -221,6 +237,11 @@ const Dashboard = () => {
   const formatContactDate = (value) => {
     if (!value) return "N/A";
     return new Date(value).toLocaleString();
+  };
+
+  const formatVolunteerDate = (value) => {
+    if (!value) return "N/A";
+    return new Date(value).toLocaleDateString();
   };
 
   const handleContactStatusChange = async (contactId, nextStatus) => {
@@ -483,6 +504,45 @@ const Dashboard = () => {
               </div>
             )}
           </div>
+        </div>
+
+        <div className="dashboard-section">
+          <h3>Volunteer Registrations</h3>
+          {volunteerLoading && <div className="volunteers-loading">Loading volunteers...</div>}
+          {!volunteerLoading && volunteerError && <div className="volunteers-error">{volunteerError}</div>}
+
+          {!volunteerLoading && !volunteerError && volunteers.length === 0 && (
+            <div className="volunteers-empty">No volunteer registrations found.</div>
+          )}
+
+          {!volunteerLoading && !volunteerError && volunteers.length > 0 && (
+            <div className="volunteers-list">
+              <table className="volunteers-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Availability</th>
+                    <th>Message</th>
+                    <th>Submitted</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {volunteers.map((volunteer) => (
+                    <tr key={volunteer._id}>
+                      <td>{volunteer.name || "N/A"}</td>
+                      <td>{volunteer.email || "N/A"}</td>
+                      <td>{volunteer.phone || "N/A"}</td>
+                      <td>{volunteer.availability || "N/A"}</td>
+                      <td>{volunteer.message || "N/A"}</td>
+                      <td>{formatVolunteerDate(volunteer.createdAt)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
 
         <div className="dashboard-section">
