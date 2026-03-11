@@ -125,11 +125,42 @@ Server (`/server`):
 
 ## Screenshots
 
-### Home Page
-![Home Page](client/src/assets/images/Home_Page.png)
-
-### Admin Dashboard
-![Admin Dashboard](client/src/assets/images/admin_dashboard.png)
+<table>
+  <tr>
+    <td align="center">
+      <strong>Home Page</strong><br />
+      <img src="client/src/assets/images/Home_Page.png" alt="Home Page" width="220" height="220" />
+    </td>
+    <td align="center">
+      <strong>FurryNest</strong><br />
+      <img src="client/src/assets/images/FurryNest.png" alt="FurryNest" width="220" height="220" />
+    </td>
+    <td align="center">
+      <strong>Products</strong><br />
+      <img src="client/src/assets/images/product.png" alt="Products" width="220" height="220" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>Orders</strong><br />
+      <img src="client/src/assets/images/orders.png" alt="Orders" width="220" height="220" />
+    </td>
+    <td align="center">
+      <strong>Admin Dashboard 1</strong><br />
+      <img src="client/src/assets/images/1.png" alt="Admin Dashboard 1" width="220" height="220" />
+    </td>
+    <td align="center">
+      <strong>Admin Dashboard 2</strong><br />
+      <img src="client/src/assets/images/2.png" alt="Admin Dashboard 2" width="220" height="220" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>Admin Dashboard 3</strong><br />
+      <img src="client/src/assets/images/3.png" alt="Admin Dashboard 3" width="220" height="220" />
+    </td>
+  </tr>
+</table>
 
 ## Troubleshooting
 
